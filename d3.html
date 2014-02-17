@@ -5,7 +5,7 @@
 
   body {
     margin: 0;
-    padding: 0;
+    padding: 500px 0;
     font-family: "Helvetica neue";
   }
 
@@ -30,7 +30,7 @@
 
   div {
     display: inline-block;
-    margin: 20px 17px;
+    margin: 0 30px 68px;
     padding: 0;
   }
 
@@ -46,17 +46,36 @@
     bottom: 0;
     left: 0;
     right: 0;
+    text-align: center;
+    margin: 0;
   }
 
-  .run-stats svg {
-    border: 1px solid red;
+  h1 {
+    text-align: left;
+    font-size: 7em;
+    line-height: 135%;
+    margin: 0 0 10px;
+  }
+
+  #footer ul {
+    display: inline-block;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    vertical-align: top;
+  }
+
+  svg.run-stats {
+    width: 701px;
+    display: inline-block;
+    height: 37px;
+    padding: 8px 0 0;
   }
 
   .run-stats text {
     font-style: normal;
     font-family: 'Times New Roman';
-    font-size: 1.8em;
-    border: 1px solid red;
+    font-size: 2em;
   }
 
   p {
@@ -80,15 +99,15 @@
   // Set vars
   var runs = ["2013-06-25-1819.gpx.geojson", "2013-07-15-1757.gpx.geojson", "2013-09-10-1851.gpx.geojson", "2013-09-12-1839.gpx.geojson", "2013-10-01-0648.gpx.geojson", "2013-10-03-0647.gpx.geojson", "2013-10-07-0715.gpx.geojson", "2013-10-09-0704.gpx.geojson", "2013-10-14-0705.gpx.geojson", "2013-10-15-1607.gpx.geojson", "2013-10-17-1640.gpx.geojson", "2013-10-22-0703.gpx.geojson", "2013-10-29-0701.gpx.geojson", "2013-11-04-0703.gpx.geojson", "2013-11-08-0710.gpx.geojson", "2013-11-12-0701.gpx.geojson", "2013-11-19-0702.gpx.geojson", "2013-12-07-1203.gpx.geojson", "2013-12-23-0759.gpx.geojson", "2013-12-24-0855.gpx.geojson", "2013-12-28-1200.gpx.geojson", "2013-12-29-0951.gpx.geojson", "2013-12-31-1036.gpx.geojson", "20130302-135810-Ride.gpx.geojson", "20130316-090035-Ride.gpx.geojson", "20130406-092005-Ride.gpx.geojson", "20130407-085909-Ride.gpx.geojson", "20130408-162556-Ride.gpx.geojson", "20130409-162721-Ride.gpx.geojson", "20130410-162424-Ride.gpx.geojson", "20130413-072211-Ride.gpx.geojson", "20130414-085310-Ride.gpx.geojson", "20130415-163346-Ride.gpx.geojson", "20130419-163301-Ride.gpx.geojson", "20130420-072630-Ride.gpx.geojson", "20130504-110849-Ride.gpx.geojson", "20130506-080333-Ride.gpx.geojson", "20130508-065841-Ride.gpx.geojson", "20130508-163122-Ride.gpx.geojson", "20130519-085701-Ride.gpx.geojson", "20130602-113548-Ride.gpx.geojson", "20130611-131745-Run.gpx.geojson", "20130625-172056-Ride.gpx.geojson", "20130625-180310-Ride.gpx.geojson", "20130701-164233-Ride.gpx.geojson", "20130702-175443-Run.gpx.geojson", "20130708-175837-Ride.gpx.geojson", "20130708-180741-Run.gpx.geojson", "20130709-174932-Run.gpx.geojson", "20130710-164102-Ride.gpx.geojson", "20130712-183013-Run.gpx.geojson", "20130713-065417-Ride.gpx.geojson", "20130715-171806-Ride.gpx.geojson", "20130721-101113-Ride.gpx.geojson", "20130722-183813-Run.gpx.geojson", "20130724-192606-Run.gpx.geojson", "20130726-171728-Ride.gpx.geojson", "20130729-180015-Run.gpx.geojson", "20130801-185807-Ride.gpx.geojson", "20130803-054758-Ride.gpx.geojson", "20130805-181031-Run.gpx.geojson", "20130808-180441-Run.gpx.geojson", "20130819-185157-Run.gpx.geojson", "20130820-175120-Ride.gpx.geojson", "20130827-174035-Ride.gpx.geojson", "20130828-183601-Run.gpx.geojson", "20130901-065608-Ride.gpx.geojson", "20130902-184834-Run.gpx.geojson"];
 
-  var width = 400,
-      height = 400;
+  var width = 375,
+      height = 375;
 
   var poster = document.getElementById("poster");
   var poster_footer = document.getElementById("footer");
   var runInfo = [];
 
   // Add Title
-  addTitle("Run & Ride, 2013");
+  addTitle("2013 Run & Ride");
   var posterTitle = document.getElementById("title");
 
   // Add Runs
@@ -136,23 +155,20 @@
 
     svg.append("text")
        .attr("x", 0)
-       .attr("y", 390);
+       .attr("y", 365);
     
     var legend = d3.select(poster_footer).append("svg")
       .attr('data-run-date', runData.features[0].properties.time)
       .attr('data-run-distance', totalDistance(runData).toFixed(2))
-      .attr("class", "run-stats" )
-      .attr("width", 400)
-      .attr("height", 50);
+      .attr("class", "run-stats" );
 
     legend.append("text")
        .attr("x", 0)
-       .attr("y", 20);   
+       .attr("y", 35);   
 
     // Sort the divs
     sortMaps();
     sortStats();
-    // addToFooter(runDiv);
   }
 
   function formattedDate(datetime){
@@ -184,55 +200,52 @@
     });
   }
 
+  Array.prototype.chunk = function ( n ) {
+    if ( !this.length ) {
+      return [];
+    }
+    return [ this.slice( 0, n ) ].concat( this.slice(n).chunk(n) );
+  };
+
   function sortStats(){
     var runDivs = document.getElementsByClassName("run-stats");
-    var runs = [];
 
-    for (var i = 0; i < runDivs.length; ++i) {
-      runs.push(runDivs[i]);
-    }
+    if(runDivs.length == 68){
+      var runs = [];
+      for (var i = 0; i < runDivs.length; ++i) {
+        runs.push(runDivs[i]);
+      }
 
-    runs.sort(function(a, b) {
-      return a.dataset.runDate.localeCompare(b.dataset.runDate);
-    })
+      runs.sort(function(a, b) {
+        return a.dataset.runDate.localeCompare(b.dataset.runDate);
+      })
 
-    runs.forEach(function(run, index) {
-      poster.appendChild(run);
+      var chunks = runs.chunk(14);
+      var ulCount = 0;
 
-      var date = run.dataset.runDate;
-      var distance = run.dataset.runDistance;
-      var date = moment(date).format('DD/MM/YYYY hh:mma');    
-      var string = "Fig. " + (index + 1) + " " + date + ": " + distance + "km";
+      chunks.forEach(function(chunk, index) {
+        var ul = document.createElement("ul");
+        ul.className = "stats_" + index;
+        poster_footer.appendChild(ul);
 
-      var legend = d3.selectAll('svg.run-stats[data-run-date="' + run.dataset.runDate + '"]')
-                     .select('text')
-                     .text(string);
-    });
-  }
+        chunk.forEach(function(run, index) {
+          var li = document.createElement("li");
+          li.appendChild(run);
+          ul.appendChild(li);
 
-  function addToFooter(runDiv) {
-    var el = footerEl(i+1, runDiv.dataset.runDate, runDiv.dataset.runDistance);
-    
-    var runDetails = document.getElementsByClassName("run-detail");
-    var runs = [];
+          var date = run.dataset.runDate;
+          var distance = run.dataset.runDistance;
+          var date = moment(date).format('DD/MM/YYYY hh:mma');    
+          var string = "Fig. " + ((ulCount*14)+(index + 1)) + ": " + date + " - " + distance + "km";
 
-    for (var i = 0; i < runDetails.length; ++i) {
-      runs.push(runDetails[i]);
-    }
+          var legend = d3.selectAll('svg.run-stats[data-run-date="' + run.dataset.runDate + '"]')
+                         .select('text')
+                         .text(string);
+        });
 
-    runs.sort(function(a, b) {
-      return a.dataset.runDate.localeCompare(b.dataset.runDate);
-    }).reverse();
-
-    for (var i = 0; i < runs.length; ++i) {
-      var run = runs[i];
-     
-      // 25/06/2013 7:19pm - 29.87km
-      var date = moment(run.dataset.runDate).format('DD/MM/YYYY hh:mma');    
-      run.innerHTML = (runs.length - i) + ". " + date + ": " + run.dataset.runDistance + "km";
-
-      insertAfter(posterTitle, run);
-    }
+        ulCount++;
+      });      
+    };
   }
 
   function insertAfter(referenceNode, newNode) {
@@ -241,10 +254,10 @@
 
   function addTitle(title) {
     var el = document.createElement("h1");
-    el.id="title";
+    el.id = "title";
     el.innerHTML = title;
 
-    insertAfter(poster, el);
+    poster_footer.appendChild(el);
   }
 
   function footerEl(index, date, distance){
