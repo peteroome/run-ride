@@ -19,11 +19,11 @@
     display: block;
     padding: 12px;
     position: relative;
+    text-align: center;
   }
 
   .arc {
     fill: none;
-    stroke: #222;
     stroke-width: 4px;
     stroke-linecap: round;
   }
@@ -35,8 +35,6 @@
   }
 
   text {
-    font-style: italic;
-    font-family: 'Times New Roman';
     font-size: 1.8em;
   }
 
@@ -50,11 +48,22 @@
     margin: 0;
   }
 
+  #h1Holder {
+    display: block;
+    width: 100%;
+    margin: 0;
+  }
+
   h1 {
-    text-align: left;
+    text-align: center;
     font-size: 7em;
     line-height: 135%;
-    margin: 0 0 10px;
+    display: inline-block;
+    color: #222;
+    border-bottom: 4px solid #222;
+    width: 30%;
+    margin: 0 0 50px;
+    padding: 0 0 15px;
   }
 
   #footer ul {
@@ -68,13 +77,12 @@
   svg.run-stats {
     width: 701px;
     display: inline-block;
-    height: 37px;
-    padding: 8px 0 0;
+    height: 44px;
+    padding: 1px 0 0;
   }
 
   .run-stats text {
     font-style: normal;
-    font-family: 'Times New Roman';
     font-size: 2em;
   }
 
@@ -107,7 +115,7 @@
   var runInfo = [];
 
   // Add Title
-  addTitle("2013 Run & Ride");
+  addTitle("Run & Ride: 2013");
   var posterTitle = document.getElementById("title");
 
   // Add Runs
@@ -166,9 +174,76 @@
        .attr("x", 0)
        .attr("y", 35);   
 
+    // Colours
+    setStrokeColours();
+
     // Sort the divs
     sortMaps();
     sortStats();
+  }
+
+  function setStrokeColours(){
+    var runs = sortedRunsArray();
+
+    if(runs.length == 68){
+      runs.forEach(function(run, index) {
+        var svg = d3.select('div[data-run-date="' + run.dataset.runDate + '"] svg');
+        svg.selectAll("path").attr("stroke", strokeColour(run.dataset.runDistance));
+      });
+    }
+  }
+
+  function Interpolate(start, end, steps, count) {
+    var s = start,
+        e = end,
+        final = s + (((e - s) / steps) * count);
+    return Math.floor(final);
+  }
+
+  function Color(_r, _g, _b) {
+    var r, g, b;
+    var setColors = function(_r, _g, _b) {
+      r = _r;
+      g = _g;
+      b = _b;
+    };
+
+    setColors(_r, _g, _b);
+    this.getColors = function() {
+      var colors = {
+          r: r,
+          g: g,
+          b: b
+      };
+      return colors;
+    };
+  }
+
+  function strokeColour(val){
+    var runs = sortedRunsArray("distance"),
+        max = parseFloat(runs[(runs.length - 1)].dataset.runDistance),
+        min = parseFloat(runs[0].dataset.runDistance),
+        average = ((max + min)/2).toFixed(),
+        val = ((parseFloat(val)/average)*100).toFixed(),
+        light_blue = new Color(127, 127, 255), // #0000fb #7f7fff
+        blue = new Color(198, 127, 184), // #800080 #c67fb8
+        red = new Color(255, 127, 127), // #ff0000 #ff7f7f
+        start = light_blue,
+        end = blue;
+
+    if (val > 50) {
+      start = blue,
+        end = red,
+        val = val % 51;
+    }
+
+    var startColors = start.getColors(),
+        endColors = end.getColors();
+    var r = Interpolate(startColors.r, endColors.r, 50, val);
+    var g = Interpolate(startColors.g, endColors.g, 50, val);
+    var b = Interpolate(startColors.b, endColors.b, 50, val);
+
+    return "rgb(" + r + "," + g + "," + b + ")";
   }
 
   function formattedDate(datetime){
@@ -179,32 +254,43 @@
     document.write(curr_date + "-" + curr_month + "-" + curr_year);
   }
 
-  function sortMaps(){
-    var runDivs = document.getElementsByClassName("run");
-    var runs = [];
+  function sortedRunsArray(sort){
+    var sort = typeof(sort) !== 'undefined' ? sort : "date",
+        runDivs = document.getElementsByClassName("run"),
+        runs = [];
 
     for (var i = 0; i < runDivs.length; ++i) {
       runs.push(runDivs[i]);
     }
 
     runs.sort(function(a, b) {
-      return a.dataset.runDate.localeCompare(b.dataset.runDate);
+      if(sort == "distance"){
+        return parseFloat(a.dataset.runDistance)-parseFloat(b.dataset.runDistance);
+      } else {
+        return a.dataset.runDate.localeCompare(b.dataset.runDate);
+      }
     })
 
+    return runs;
+  }
+
+  function sortMaps(){
+    var runs = sortedRunsArray();
     runs.forEach(function(run, index) {
       poster.appendChild(run);
       var string = "Fig. " + (index + 1);
-      var legend = d3.selectAll('div.run[data-run-date="' + run.dataset.runDate + '"]')
-                     .select('text')
-                     .text(string);
+      d3.selectAll('div.run[data-run-date="' + run.dataset.runDate + '"]')
+        .select('text')
+        .text(string)
+        .attr("stroke", strokeColour(run.dataset.runDistance));
     });
   }
 
-  Array.prototype.chunk = function ( n ) {
-    if ( !this.length ) {
+  Array.prototype.chunk = function(n){
+    if (!this.length){
       return [];
     }
-    return [ this.slice( 0, n ) ].concat( this.slice(n).chunk(n) );
+    return [this.slice(0, n)].concat(this.slice(n).chunk(n));
   };
 
   function sortStats(){
@@ -238,9 +324,9 @@
           var date = moment(date).format('DD/MM/YYYY hh:mma');    
           var string = "Fig. " + ((ulCount*14)+(index + 1)) + ": " + date + " - " + distance + "km";
 
-          var legend = d3.selectAll('svg.run-stats[data-run-date="' + run.dataset.runDate + '"]')
-                         .select('text')
-                         .text(string);
+          d3.selectAll('svg.run-stats[data-run-date="' + run.dataset.runDate + '"]')
+            .select('text')
+            .text(string)
         });
 
         ulCount++;
@@ -253,11 +339,15 @@
   }
 
   function addTitle(title) {
-    var el = document.createElement("h1");
-    el.id = "title";
-    el.innerHTML = title;
+    var h1Holder = document.createElement("div");
+    h1Holder.id = "h1Holder";
 
-    poster_footer.appendChild(el);
+    var h1 = document.createElement("h1");
+    h1.id = "title";
+    h1.innerHTML = title;
+
+    h1Holder.appendChild(h1);
+    poster_footer.appendChild(h1Holder);
   }
 
   function footerEl(index, date, distance){
