@@ -30,7 +30,7 @@
 
   div {
     display: inline-block;
-    margin: 0 30px 68px;
+    margin: 0 20px 68px;
     padding: 0;
   }
 
@@ -41,37 +41,40 @@
   #footer {
     display: block;
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    text-align: center;
-    margin: 0;
-  }
-
-  #h1Holder {
-    display: block;
-    width: 100%;
+    bottom: 400px;
+    left: 150px;
+    right: 150px;
     margin: 0;
   }
 
   h1 {
-    text-align: center;
-    font-size: 7em;
-    line-height: 135%;
-    display: inline-block;
+    text-align: left;
+    font-size: 10em;
+    line-height: 150%;
     color: #222;
-    border-bottom: 4px solid #222;
-    width: 30%;
-    margin: 0 0 50px;
-    padding: 0 0 15px;
+    margin: 100px 200px 150px;
   }
 
   #footer ul {
-    display: inline-block;
     list-style: none;
     margin: 0;
     padding: 0;
-    vertical-align: top;
+  }
+
+  #footer ul li {
+    line-height: 165%;
+    text-align: left;
+    font-size: 2.2em;
+    display: inline-block;
+    margin: 0 10px 0 0;
+    float: left;
+    width: 600px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  #footer ul li:nth-child(odd) {
+    clear: both;
   }
 
   svg.run-stats {
@@ -107,8 +110,8 @@
   // Set vars
   var runs = ["2013-06-25-1819.gpx.geojson", "2013-07-15-1757.gpx.geojson", "2013-09-10-1851.gpx.geojson", "2013-09-12-1839.gpx.geojson", "2013-10-01-0648.gpx.geojson", "2013-10-03-0647.gpx.geojson", "2013-10-07-0715.gpx.geojson", "2013-10-09-0704.gpx.geojson", "2013-10-14-0705.gpx.geojson", "2013-10-15-1607.gpx.geojson", "2013-10-17-1640.gpx.geojson", "2013-10-22-0703.gpx.geojson", "2013-10-29-0701.gpx.geojson", "2013-11-04-0703.gpx.geojson", "2013-11-08-0710.gpx.geojson", "2013-11-12-0701.gpx.geojson", "2013-11-19-0702.gpx.geojson", "2013-12-07-1203.gpx.geojson", "2013-12-23-0759.gpx.geojson", "2013-12-24-0855.gpx.geojson", "2013-12-28-1200.gpx.geojson", "2013-12-29-0951.gpx.geojson", "2013-12-31-1036.gpx.geojson", "20130302-135810-Ride.gpx.geojson", "20130316-090035-Ride.gpx.geojson", "20130406-092005-Ride.gpx.geojson", "20130407-085909-Ride.gpx.geojson", "20130408-162556-Ride.gpx.geojson", "20130409-162721-Ride.gpx.geojson", "20130410-162424-Ride.gpx.geojson", "20130413-072211-Ride.gpx.geojson", "20130414-085310-Ride.gpx.geojson", "20130415-163346-Ride.gpx.geojson", "20130419-163301-Ride.gpx.geojson", "20130420-072630-Ride.gpx.geojson", "20130504-110849-Ride.gpx.geojson", "20130506-080333-Ride.gpx.geojson", "20130508-065841-Ride.gpx.geojson", "20130508-163122-Ride.gpx.geojson", "20130519-085701-Ride.gpx.geojson", "20130602-113548-Ride.gpx.geojson", "20130611-131745-Run.gpx.geojson", "20130625-172056-Ride.gpx.geojson", "20130625-180310-Ride.gpx.geojson", "20130701-164233-Ride.gpx.geojson", "20130702-175443-Run.gpx.geojson", "20130708-175837-Ride.gpx.geojson", "20130708-180741-Run.gpx.geojson", "20130709-174932-Run.gpx.geojson", "20130710-164102-Ride.gpx.geojson", "20130712-183013-Run.gpx.geojson", "20130713-065417-Ride.gpx.geojson", "20130715-171806-Ride.gpx.geojson", "20130721-101113-Ride.gpx.geojson", "20130722-183813-Run.gpx.geojson", "20130724-192606-Run.gpx.geojson", "20130726-171728-Ride.gpx.geojson", "20130729-180015-Run.gpx.geojson", "20130801-185807-Ride.gpx.geojson", "20130803-054758-Ride.gpx.geojson", "20130805-181031-Run.gpx.geojson", "20130808-180441-Run.gpx.geojson", "20130819-185157-Run.gpx.geojson", "20130820-175120-Ride.gpx.geojson", "20130827-174035-Ride.gpx.geojson", "20130828-183601-Run.gpx.geojson", "20130901-065608-Ride.gpx.geojson", "20130902-184834-Run.gpx.geojson"];
 
-  var width = 375,
-      height = 375;
+  var width = 350,
+      height = 350;
 
   var poster = document.getElementById("poster");
   var poster_footer = document.getElementById("footer");
@@ -159,99 +162,11 @@
     svg.append("path")
       .datum(runData)
       .attr("class", "arc")
-      .attr("d", path);
+      .attr("d", path)
+      .attr("stroke", "#000");
 
-    svg.append("text")
-       .attr("x", 0)
-       .attr("y", 365);
-    
-    var legend = d3.select(poster_footer).append("svg")
-      .attr('data-run-date', runData.features[0].properties.time)
-      .attr('data-run-distance', totalDistance(runData).toFixed(2))
-      .attr("class", "run-stats" );
-
-    legend.append("text")
-       .attr("x", 0)
-       .attr("y", 35);   
-
-    // Colours
-    setStrokeColours();
-
-    // Sort the divs
-    sortMaps();
-    sortStats();
-  }
-
-  function setStrokeColours(){
-    var runs = sortedRunsArray();
-
-    if(runs.length == 68){
-      runs.forEach(function(run, index) {
-        var svg = d3.select('div[data-run-date="' + run.dataset.runDate + '"] svg');
-        svg.selectAll("path").attr("stroke", strokeColour(run.dataset.runDistance));
-      });
-    }
-  }
-
-  function Interpolate(start, end, steps, count) {
-    var s = start,
-        e = end,
-        final = s + (((e - s) / steps) * count);
-    return Math.floor(final);
-  }
-
-  function Color(_r, _g, _b) {
-    var r, g, b;
-    var setColors = function(_r, _g, _b) {
-      r = _r;
-      g = _g;
-      b = _b;
-    };
-
-    setColors(_r, _g, _b);
-    this.getColors = function() {
-      var colors = {
-          r: r,
-          g: g,
-          b: b
-      };
-      return colors;
-    };
-  }
-
-  function strokeColour(val){
-    var runs = sortedRunsArray("distance"),
-        max = parseFloat(runs[(runs.length - 1)].dataset.runDistance),
-        min = parseFloat(runs[0].dataset.runDistance),
-        average = ((max + min)/2).toFixed(),
-        val = ((parseFloat(val)/average)*100).toFixed(),
-        light_blue = new Color(127, 127, 255), // #0000fb #7f7fff
-        blue = new Color(198, 127, 184), // #800080 #c67fb8
-        red = new Color(255, 127, 127), // #ff0000 #ff7f7f
-        start = light_blue,
-        end = blue;
-
-    if (val > 50) {
-      start = blue,
-        end = red,
-        val = val % 51;
-    }
-
-    var startColors = start.getColors(),
-        endColors = end.getColors();
-    var r = Interpolate(startColors.r, endColors.r, 50, val);
-    var g = Interpolate(startColors.g, endColors.g, 50, val);
-    var b = Interpolate(startColors.b, endColors.b, 50, val);
-
-    return "rgb(" + r + "," + g + "," + b + ")";
-  }
-
-  function formattedDate(datetime){
-    var date = new Date(datetime);
-    var curr_date = date.getDate(),
-        curr_month = date.getMonth() + 1, //Months are zero based
-        curr_year = date.getFullYear();
-    document.write(curr_date + "-" + curr_month + "-" + curr_year);
+    // Stats
+    appendStats();
   }
 
   function sortedRunsArray(sort){
@@ -282,82 +197,75 @@
       d3.selectAll('div.run[data-run-date="' + run.dataset.runDate + '"]')
         .select('text')
         .text(string)
-        .attr("stroke", strokeColour(run.dataset.runDistance));
+        .attr("stroke", "#000");
     });
   }
 
-  Array.prototype.chunk = function(n){
-    if (!this.length){
-      return [];
-    }
-    return [this.slice(0, n)].concat(this.slice(n).chunk(n));
-  };
+  function appendStats(){
+    var runs = sortedRunsArray();
+    if(runs.length == 68){
+      var total = overallDistance(),
+          avg = averageDistance(),
+          min = minDistance(),
+          max = maxDistance();
 
-  function sortStats(){
-    var runDivs = document.getElementsByClassName("run-stats");
+      var ul = document.createElement("ul");
+      ul.className = "stats";
+      poster_footer.appendChild(ul);
 
-    if(runDivs.length == 68){
-      var runs = [];
-      for (var i = 0; i < runDivs.length; ++i) {
-        runs.push(runDivs[i]);
-      }
+      var li = document.createElement("li");
+      li.innerHTML = "Total: " + total + "km";
+      ul.appendChild(li);
 
-      runs.sort(function(a, b) {
-        return a.dataset.runDate.localeCompare(b.dataset.runDate);
-      })
+      var li = document.createElement("li");
+      li.innerHTML = "Minimum: " + min + "km";
+      ul.appendChild(li);
 
-      var chunks = runs.chunk(14);
-      var ulCount = 0;
+      var li = document.createElement("li");
+      li.innerHTML = "Average: " + avg + "km";
+      ul.appendChild(li);
 
-      chunks.forEach(function(chunk, index) {
-        var ul = document.createElement("ul");
-        ul.className = "stats_" + index;
-        poster_footer.appendChild(ul);
-
-        chunk.forEach(function(run, index) {
-          var li = document.createElement("li");
-          li.appendChild(run);
-          ul.appendChild(li);
-
-          var date = run.dataset.runDate;
-          var distance = run.dataset.runDistance;
-          var date = moment(date).format('DD/MM/YYYY hh:mma');    
-          var string = "Fig. " + ((ulCount*14)+(index + 1)) + ": " + date + " - " + distance + "km";
-
-          d3.selectAll('svg.run-stats[data-run-date="' + run.dataset.runDate + '"]')
-            .select('text')
-            .text(string)
-        });
-
-        ulCount++;
-      });      
+      var li = document.createElement("li");
+      li.innerHTML = "Maximum: " + max + "km";
+      ul.appendChild(li);
     };
   }
 
-  function insertAfter(referenceNode, newNode) {
-    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+  function maxDistance(){
+    var runs = sortedRunsArray("distance");
+    return parseFloat(runs[runs.length - 1].dataset.runDistance)
+  }
+
+  function minDistance(){
+    var runs = sortedRunsArray("distance");
+    return parseFloat(runs[0].dataset.runDistance)
+  }
+
+  function overallDistance(){
+    var runs = sortedRunsArray("distance"),
+        sum = 0;
+
+    for (var i = 0; i < runs.length; ++i) {
+      var distance = parseFloat(runs[i].dataset.runDistance);
+      sum += distance;
+    }
+    
+    return Math.round(sum*100)/100;;
+  }
+
+  function averageDistance(){
+    var runs = sortedRunsArray("distance"),
+        total = overallDistance();
+
+    return Math.round(total/runs.length*100)/100;
   }
 
   function addTitle(title) {
-    var h1Holder = document.createElement("div");
-    h1Holder.id = "h1Holder";
-
     var h1 = document.createElement("h1");
     h1.id = "title";
     h1.innerHTML = title;
 
-    h1Holder.appendChild(h1);
-    poster_footer.appendChild(h1Holder);
-  }
-
-  function footerEl(index, date, distance){
-    var el = document.createElement("p");
-    el.className = "run-detail";
-    el.dataset.runDate = date;
-    el.dataset.runDistance = distance;
-    insertAfter(posterTitle, el);
-
-    return el;
+    poster.appendChild(h1);
   }
 
   function totalDistance(data){
