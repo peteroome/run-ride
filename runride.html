@@ -4,20 +4,20 @@
   <style>
 
   body {
-    margin: 0;
-    padding: 500px 0;
+    margin: 200px auto;
+    padding: 0;
+    width: 3508px; 
+    height: 4961px;
     font-family: "Helvetica neue";
   }
 
+  /* A2: 4961x7016 */
+  /* A3: 3508x4961 */
   #poster {
-    /*A3 Width: 3508px */
-    width: 3484px; 
-    /*A3 Height: 4950px */
-    height: 4926px;
+    width: 3508px; 
+    height: 4961px;
     margin: 0 auto;
-    border: 1px solid #000;
     display: block;
-    padding: 12px;
     position: relative;
     text-align: center;
     background: #0d2833;
@@ -26,7 +26,7 @@
 
   .arc {
     fill: none;
-    stroke-width: 4px;
+    stroke-width: 5px;
     stroke-linecap: round;
     stroke: #1c73b6;
     /*stroke: #ec7a24;*/
@@ -34,7 +34,7 @@
 
   div {
     display: inline-block;
-    margin: 0 20px 75px;
+    margin: 0 20px 80px;
     padding: 0;
   }
 
@@ -46,8 +46,10 @@
     text-align: left;
     font-size: 12em;
     line-height: 150%;
-    margin: 100px 175px 130px;
+    margin: 100px 175px 110px;
     color: #fff;
+    display: inline-block;
+    width: 3158px;
   }
 
   h2 {
@@ -67,14 +69,18 @@
     text-transform: uppercase;
   }
 
+  .statsHolder:last-child h3 {
+    margin-bottom: 20px;
+  }
+
   .statsHolder {
     display: inline-block;
     margin: 0 70px 0 0;
     text-align: left;
+    vertical-align: top;
   }
 
   .statsHolder:last-child {
-    float: right;
     margin: 0;
   }
 
@@ -96,11 +102,11 @@
   }
 
   #footer ul li {
-    line-height: 144%;
+    line-height: 132%;
     text-align: left;
     font-size: 2.1em;
     display: inline-block;
-    margin: 0 10px 0 0;
+    margin: 0;
     float: left;
     width: 400px;
     font-weight: bold;
@@ -136,6 +142,7 @@
 </head>
 <body>
   <div id="poster">
+    <h1>Run & Ride</h1>
     <div id="footer"></div>
   </div>
 
@@ -154,10 +161,6 @@
   var poster = document.getElementById("poster");
   var poster_footer = document.getElementById("footer");
   var runInfo = [];
-
-  // Add Title
-  addTitle("Run & Ride");
-  var posterTitle = document.getElementById("title");
 
   // Add Runs
   for (var i=0;i<runs.length;i++){
@@ -339,14 +342,6 @@
         total = overallDistance();
 
     return Math.round(total/runs.length*100)/100;
-  }
-
-  function addTitle(title) {
-    var h1 = document.createElement("h1");
-    h1.id = "title";
-    h1.innerHTML = title;
-
-    poster.appendChild(h1);
   }
 
   function totalDistance(data){
