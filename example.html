@@ -164,7 +164,7 @@
 
   // Add Runs
   for (var i=0;i<runs.length;i++){
-    d3.json("data/"+runs[i], function(error, run) {
+    d3.json("example-data/"+runs[i], function(error, run) {
       drawRun(run); //load the json data
     });
   };
