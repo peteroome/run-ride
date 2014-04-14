@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+  <style>
+
+  body {
+    margin: 200px auto;
+    padding: 0;
+    width: 3508px; 
+    height: 4961px;
+    font-family: "Helvetica neue";
+  }
+
+  /* A2: 4961x7016 */
+  /* A3: 3508x4961 */
+  #poster {
+    padding: 100px 175px;
+
+    /* Minus the padding */
+    width: 3158px;
+    height: 4761px;
+    
+    margin: 0 auto;
+    display: block;
+    position: relative;
+    text-align: left;
+
+    /* Blue */
+    background: #0d2833;
+
+    /* Yellow */
+    /*background: #f9b914; */
+    
+    /* Orange */
+    /*background: #2b2b2b;*/
+
+    /* Grey */
+    /*background: #23333d;*/
+
+    /* Night */
+    /*background: #160a47;*/
+
+    /* Black/Yellow */
+    /*background: #333;*/
+
+    /* Pink/Purple */
+    /*background: #3f0082;*/
+
+    /* Purple/Yellow */
+    /*background: #3f0082;*/
+  }
+
+  .arc {
+    fill: none;
+    stroke-width: 5px;
+    stroke-linecap: round;
+
+    /* Blue */
+    stroke: #1c73b6;
+
+    /* Yellow */
+    /*stroke: #ec7a24;*/
+
+    /* Orange */
+    /*stroke: #ed4520;*/
+
+    /* Grey */
+    /*stroke: #eaff00;*/
+
+    /* Night */
+    /*stroke: #f2671f;*/
+
+    /* Black/Yellow */
+    /*stroke: #ffd900;*/
+
+    /* Pink/Purple */
+    /*stroke: #ff66cc;*/
+
+    /* Purple/Yellow */
+    /*stroke: #ffd900;*/
+  }
+
+  div.run {
+    display: inline-block;
+    margin: 0 21px 63px;
+    padding: 0;
+  }
+
+  text {
+    font-size: 1.8em;
+  }
+
+  h1, h2, h3,
+  #footer ul li {
+    /* Blue */
+    /*color: #fff;*/
+
+    /* Yellow */
+    color: #fff;
+
+    /* Orange */
+    /*color: #fff;*/
+
+    /* Red */
+    color: #fff;
+  }
+
+  h1 {
+    text-align: left;
+    font-size: 11em;
+    line-height: 150%;
+    margin: 0 0 80px;
+    display: inline-block;
+    width: 3158px;
+  }
+
+  h2 {
+    text-align: left;
+    font-size: 6em;
+    line-height: 100%;
+    margin: 0;
+  }
+
+  h3 {
+    text-align: left;
+    font-size: 2.1em;
+    line-height: 135%;
+    margin: 0 0 15px;
+    text-transform: uppercase;
+  }
+
+  .statsHolder:last-child h3 {
+    margin-bottom: 20px;
+  }
+
+  .statsHolder {
+    display: inline-block;
+    margin: 0 70px 0 0;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .statsHolder:last-child {
+    margin: 0;
+  }
+
+  #footer {
+    display: block;
+    position: absolute;
+    bottom: 200px;
+    left: 175px;
+    right: 175px;
+    margin: 0;
+    text-align: left; 
+  }
+
+  #footer ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    float: right;
+  }
+
+  #footer ul li {
+    line-height: 132%;
+    text-align: left;
+    font-size: 2.1em;
+    display: inline-block;
+    margin: 0;
+    float: left;
+    width: 400px;
+    font-weight: bold;
+  }
+
+  #footer ul li:nth-child(odd) {
+    clear: both;
+  }
+
+  #footer ul li:nth-child(even) {
+    width: auto;
+  }
+
+  svg.run-stats {
+    width: 701px;
+    display: inline-block;
+    height: 44px;
+    padding: 1px 0 0;
+  }
+
+  .run-stats text {
+    font-style: normal;
+    font-size: 2em;
+  }
+
+  p {
+    margin: 0 0 5px;
+    line-height: 135%;
+  }
+
+  </style>
+</head>
+<body>
+  <div id="poster">
+    <h1>Run & Ride</h1>
+    <div id="footer"></div>
+  </div>
+
+  <!-- Javascript -->
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://d3js.org/topojson.v1.min.js"></script>
+  <script>
+
+  // Set vars
+  var athlete = {
+    name: "Trevor Morris",
+    year: "2013"
+  };
+
+  var runs = ["20130106-101936-Ride.gpx.geojson", "20130109-102316-Ride.gpx.geojson", "20130112-090551-Ride.gpx.geojson", "20130113-105532-Ride.gpx.geojson", "20130119-110147-Ride.gpx.geojson", "20130120-113452-Ride.gpx.geojson", "20130216-091100-Ride.gpx.geojson", "20130217-105645-Ride.gpx.geojson", "20130218-161939-Ride.gpx.geojson", "20130219-161059-Ride.gpx.geojson", "20130221-160854-Ride.gpx.geojson", "20130222-161352-Ride.gpx.geojson", "20130223-090819-Ride.gpx.geojson", "20130224-084357-Ride.gpx.geojson", "20130226-161146-Ride.gpx.geojson", "20130227-173900-Ride.gpx.geojson", "20130228-143202-Ride.gpx.geojson", "20130301-162524-Ride.gpx.geojson", "20130302-101141-Ride.gpx.geojson", "20130304-161541-Ride.gpx.geojson", "20130305-160723-Ride.gpx.geojson", "20130306-175506-Ride.gpx.geojson", "20130313-174635-Ride.gpx.geojson", "20130316-104222-Ride.gpx.geojson", "20130318-161816-Ride.gpx.geojson", "20130320-175140-Ride.gpx.geojson", "20130321-162704-Ride.gpx.geojson", "20130324-111545-Ride.gpx.geojson", "20130329-131340-Ride.gpx.geojson", "20130330-105745-Ride.gpx.geojson", "20130402-163951-Ride.gpx.geojson", "20130403-164055-Ride.gpx.geojson", "20130404-164447-Ride.gpx.geojson", "20130406-130258-Ride.gpx.geojson", "20130407-074117-Ride.gpx.geojson", "20130409-165709-Ride.gpx.geojson", "20130410-164403-Ride.gpx.geojson", "20130413-090148-Ride.gpx.geojson", "20130415-164229-Ride.gpx.geojson", "20130416-170033-Ride.gpx.geojson", "20130417-165148-Ride.gpx.geojson", "20130419-170852-Ride.gpx.geojson", "20130420-094526-Ride.gpx.geojson", "20130422-171904-Ride.gpx.geojson", "20130423-164058-Ride.gpx.geojson", "20130424-165937-Ride.gpx.geojson", "20130425-165456-Ride.gpx.geojson", "20130427-081203-Ride.gpx.geojson", "20130428-074255-Ride.gpx.geojson", "20130429-171747-Ride.gpx.geojson", "20130430-160439-Ride.gpx.geojson", "20130501-164454-Ride.gpx.geojson", "20130502-161850-Ride.gpx.geojson", "20130502-171120-Ride.gpx.geojson", "20130503-163405-Ride.gpx.geojson", "20130504-081419-Ride.gpx.geojson", "20130504-115700-Ride.gpx.geojson", "20130505-073451-Ride.gpx.geojson", "20130506-121322-Ride.gpx.geojson", "20130506-163741-Ride.gpx.geojson", "20130507-131813-Ride.gpx.geojson", "20130507-164354-Ride.gpx.geojson", "20130511-090012-Ride.gpx.geojson", "20130515-161050-Ride.gpx.geojson", "20130516-174824-Ride.gpx.geojson", "20130517-181652-Ride.gpx.geojson", "20130518-091725-Ride.gpx.geojson", "20130518-181451-Ride.gpx.geojson", "20130519-102714-Ride.gpx.geojson", "20130521-080701-Ride.gpx.geojson", "20130522-163448-Ride.gpx.geojson", "20130525-091901-Ride.gpx.geojson", "20130526-130321-Ride.gpx.geojson", "20130527-121523-Ride.gpx.geojson", "20130527-163823-Ride.gpx.geojson", "20130530-164543-Ride.gpx.geojson", "20130531-084203-Ride.gpx.geojson", "20130531-154338-Ride.gpx.geojson", "20130531-164458-Ride.gpx.geojson", "20130601-120845-Ride.gpx.geojson", "20130602-074645-Ride.gpx.geojson", "20130603-171239-Ride.gpx.geojson", "20130604-171342-Ride.gpx.geojson", "20130605-162831-Ride.gpx.geojson", "20130606-172632-Ride.gpx.geojson", "20130607-064931-Ride.gpx.geojson", "20130607-115734-Ride.gpx.geojson", "20130608-100512-Ride.gpx.geojson", "20130609-074724-Ride.gpx.geojson", "20130610-173651-Ride.gpx.geojson", "20130611-172238-Ride.gpx.geojson", "20130615-131652-Walk.gpx.geojson", "20130617-172817-Ride.gpx.geojson", "20130618-162319-Ride.gpx.geojson", "20130619-080527-Ride.gpx.geojson", "20130620-172225-Ride.gpx.geojson", "20130621-180729-Ride.gpx.geojson", "20130624-173826-Ride.gpx.geojson", "20130625-172656-Ride.gpx.geojson", "20130626-080525-Ride.gpx.geojson", "20130629-081026-Ride.gpx.geojson", "20130630-075031-Ride.gpx.geojson", "20130701-173452-Ride.gpx.geojson", "20130703-165902-Ride.gpx.geojson", "20130705-175647-Ride.gpx.geojson", "20130706-094921-Ride.gpx.geojson", "20130707-074730-Ride.gpx.geojson", "20130707-142310-Ride.gpx.geojson", "20130708-172923-Ride.gpx.geojson", "20130709-170906-Ride.gpx.geojson", "20130711-174657-Ride.gpx.geojson", "20130712-065725-Ride.gpx.geojson", "20130713-084715-Ride.gpx.geojson", "20130714-074516-Ride.gpx.geojson", "20130715-173059-Ride.gpx.geojson", "20130716-170415-Ride.gpx.geojson", "20130717-172651-Ride.gpx.geojson", "20130718-165903-Ride.gpx.geojson", "20130719-170034-Ride.gpx.geojson", "20130721-061920-Ride.gpx.geojson", "20130722-173059-Ride.gpx.geojson", "20130724-170355-Ride.gpx.geojson", "20130725-174011-Ride.gpx.geojson", "20130726-163340-Ride.gpx.geojson", "20130727-083637-Ride.gpx.geojson", "20130731-171957-Ride.gpx.geojson", "20130801-164733-Ride.gpx.geojson", "20130806-163510-Ride.gpx.geojson", "20130807-172508-Ride.gpx.geojson", "20130810-080846-Ride.gpx.geojson", "20130810-150151-Ride.gpx.geojson", "20130811-075137-Ride.gpx.geojson", "20130812-173313-Ride.gpx.geojson", "20130814-174127-Ride.gpx.geojson", "20130816-165505-Ride.gpx.geojson", "20130817-081139-Ride.gpx.geojson", "20130818-090618-Ride.gpx.geojson", "20130819-173629-Ride.gpx.geojson", "20130821-164019-Ride.gpx.geojson", "20130822-181311-Ride.gpx.geojson", "20130824-171252-Ride.gpx.geojson", "20130825-074916-Ride.gpx.geojson", "20130826-163327-Ride.gpx.geojson", "20130827-172310-Ride.gpx.geojson", "20130830-170303-Ride.gpx.geojson", "20130831-103602-Ride.gpx.geojson", "20130901-073044-Ride.gpx.geojson", "20130902-173136-Ride.gpx.geojson", "20130904-164848-Ride.gpx.geojson", "20130913-134419-Ride.gpx.geojson", "20130914-081327-Ride.gpx.geojson", "20130916-173344-Ride.gpx.geojson", "20130920-172651-Ride.gpx.geojson", "20130921-081149-Ride.gpx.geojson", "20130922-095600-Ride.gpx.geojson", "20130925-180438-Ride.gpx.geojson", "20130928-143454-Ride.gpx.geojson", "20130929-091445-Ride.gpx.geojson", "20131002-172036-Ride.gpx.geojson", "20131005-104106-Ride.gpx.geojson", "20131005-134915-Ride.gpx.geojson", "20131006-053115-Ride.gpx.geojson", "20131008-090822-Ride.gpx.geojson", "20131009-065909-Ride.gpx.geojson", "20131009-171647-Ride.gpx.geojson", "20131017-064727-Ride.gpx.geojson", "20131019-105137-Ride.gpx.geojson", "20131026-093747-Ride.gpx.geojson", "20131026-142519-Ride.gpx.geojson", "20131028-144659-Ride.gpx.geojson", "20131029-073600-Ride.gpx.geojson", "20131030-071955-Ride.gpx.geojson", "20131031-073227-Ride.gpx.geojson", "20131101-073521-Ride.gpx.geojson", "20131104-070005-Ride.gpx.geojson", "20131107-073343-Ride.gpx.geojson", "20131110-100445-Ride.gpx.geojson", "20131112-075328-Ride.gpx.geojson", "20131115-073102-Ride.gpx.geojson", "20131116-113536-Ride.gpx.geojson", "20131129-091916-Ride.gpx.geojson", "20131130-091546-Ride.gpx.geojson", "20131201-090447-Ride.gpx.geojson", "20131207-104919-Ride.gpx.geojson", "20131208-085253-Ride.gpx.geojson", "20131209-183314-Ride.gpx.geojson", "20131219-105326-Ride.gpx.geojson", "20131220-105641-Ride.gpx.geojson", "20131229-085037-Ride.gpx.geojson"];
+
+  // var width = 350,
+  //     height = 360;
+  var width = 200,
+      height = 210;
+
+  var poster = document.getElementById("poster");
+  var poster_footer = document.getElementById("footer");
+  var runInfo = [];
+
+  // Add Runs
+  for (var i=0;i<runs.length;i++){
+    d3.json("data/"+runs[i], function(error, run) {
+      drawRun(run); //load the json data
+    });
+  };
+
+  // Functions
+  function drawRun(runData, i){
+    var runDiv = document.createElement("div");
+    runDiv.className = "run";
+    runDiv.dataset.runDate = runData.features[0].properties.time;
+    runDiv.dataset.runDistance = totalDistance(runData).toFixed(2);
+
+    poster.appendChild(runDiv);
+
+    var projection = d3.geo.mercator()
+        .scale(1)
+        .translate([0, 0]);
+
+    var path = d3.geo.path()
+        .projection(projection);
+
+    // Compute the bounds of a feature of interest, then derive scale & translate.
+    var b = path.bounds(runData),
+        s = 0.95 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height),
+        t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2];
+
+    // Update the projection to use computed scale & translate.
+    projection
+      .scale(s)
+      .translate(t);
+
+    var svg = d3.select(runDiv).append("svg")
+      .attr("class", "run-svg" )
+      .attr("width", width)
+      .attr("height", height);
+
+    svg.append("path")
+      .datum(runData)
+      .attr("class", "arc")
+      .attr("d", path);
+
+    sortMaps();
+
+    // Stats
+    appendStats();
+  }
+
+  function sortMaps(){
+    var runs = sortedRunsArray();
+    runs.forEach(function(run, index) {
+      poster.appendChild(run);
+    });
+  }
+
+  function sortedRunsArray(sort){
+    var sort = typeof(sort) !== 'undefined' ? sort : "date",
+        runDivs = document.getElementsByClassName("run"),
+        runs = [];
+
+    for (var i = 0; i < runDivs.length; ++i) {
+      runs.push(runDivs[i]);
+    }
+
+    runs.sort(function(a, b) {
+      if(sort == "distance"){
+        return parseFloat(a.dataset.runDistance)-parseFloat(b.dataset.runDistance);
+      } else {
+        return a.dataset.runDate.localeCompare(b.dataset.runDate);
+      }
+    })
+
+    return runs;
+  }
+
+  function sortMaps(){
+    var runs = sortedRunsArray();
+    runs.forEach(function(run, index) {
+      poster.appendChild(run);
+      var string = "Fig. " + (index + 1);
+      d3.selectAll('div.run[data-run-date="' + run.dataset.runDate + '"]')
+        .select('text')
+        .text(string)
+        .attr("stroke", "#000");
+    });
+  }
+
+  function appendStats(){
+    var runs = sortedRunsArray();
+    if(runs.length == 68){
+      var total = overallDistance(),
+          avg = averageDistance(),
+          min = minDistance(),
+          max = maxDistance();
+
+      // Year: 2013
+      var div = document.createElement("div");
+      div.className = "statsHolder";
+      poster_footer.appendChild(div);
+
+      var h3 = document.createElement("h3");
+      h3.innerHTML = "Year:";
+      div.appendChild(h3);
+
+      var h2 = document.createElement("h2");
+      h2.innerHTML = athlete["year"];
+      div.appendChild(h2);
+
+      var div = document.createElement("div");
+      div.className = "statsHolder";
+      poster_footer.appendChild(div);
+
+      var h3 = document.createElement("h3");
+      h3.innerHTML = "Athlete:";
+      div.appendChild(h3);
+
+      var h2 = document.createElement("h2");
+      h2.innerHTML = athlete["name"];
+      div.appendChild(h2);
+
+      // Stats
+      var div = document.createElement("div");
+      div.className = "statsHolder";
+      poster_footer.appendChild(div);
+
+      var h3 = document.createElement("h3");
+      h3.innerHTML = "Review:";
+      div.appendChild(h3);
+
+      var ul = document.createElement("ul");
+      ul.className = "stats";
+      div.appendChild(ul);
+
+      var li = document.createElement("li");
+      li.innerHTML = "Total: " + total + "km";
+      ul.appendChild(li);
+
+      var li = document.createElement("li");
+      li.innerHTML = "Minimum: " + min + "km";
+      ul.appendChild(li);
+
+      var li = document.createElement("li");
+      li.innerHTML = "Average: " + avg + "km";
+      ul.appendChild(li);
+
+      var li = document.createElement("li");
+      li.innerHTML = "Maximum: " + max + "km";
+      ul.appendChild(li);
+    };
+  }
+
+  function maxDistance(){
+    var runs = sortedRunsArray("distance");
+    return parseFloat(runs[runs.length - 1].dataset.runDistance)
+  }
+
+  function minDistance(){
+    var runs = sortedRunsArray("distance");
+    return parseFloat(runs[0].dataset.runDistance)
+  }
+
+  function overallDistance(){
+    var runs = sortedRunsArray("distance"),
+        sum = 0;
+
+    for (var i = 0; i < runs.length; ++i) {
+      var distance = parseFloat(runs[i].dataset.runDistance);
+      sum += distance;
+    }
+    
+    return Math.round(sum*100)/100;;
+  }
+
+  function averageDistance(){
+    var runs = sortedRunsArray("distance"),
+        total = overallDistance();
+
+    return Math.round(total/runs.length*100)/100;
+  }
+
+  function totalDistance(data){
+    var coords = data.features[0].geometry.coordinates;
+    var totalDist = 0;
+
+    for (var i = 0; i < (coords.length-1); ++i) {
+      var p1 = [coords[i][0], coords[i][1]]
+      var p2 = [coords[i+1][0], coords[i+1][1]]
+          
+      totalDist += calcDist(p1, p2);
+    }
+
+    return totalDist;
+  }
+
+  function calcDist(p1, p2) {
+    // Haversine formula
+    dLatRad = Math.abs(p1[1] - p2[1]) * Math.PI/180;
+    dLonRad = Math.abs(p1[0] - p2[0]) * Math.PI/180;
+    // Calculate origin in Radians
+    lat1Rad = p1[1] * Math.PI/180;
+    lon1Rad = p1[0] * Math.PI/180;
+    // Calculate new point in Radians
+    lat2Rad = p2[1] * Math.PI/180;
+    lon2Rad = p2[0] * Math.PI/180;
+
+    // Earth's Radius
+    eR = 6371;
+    d1 = Math.sin(dLatRad/2) * Math.sin(dLatRad/2) +
+         Math.sin(dLonRad/2) * Math.sin(dLonRad/2) * Math.cos(lat1Rad) * Math.cos(lat2Rad);
+    d2 = 2 * Math.atan2(Math.sqrt(d1), Math.sqrt(1-d1));
+    return(eR * d2);
+  }
+
+  d3.select(self.frameElement).style("height", height + "px");
+
+  </script>
+</body>
