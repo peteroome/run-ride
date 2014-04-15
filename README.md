@@ -18,4 +18,4 @@ $ python -m SimpleHTTPServer
 ### List of data files:
 cd into/directory/containting/geojson/files
 irb
-Dir["*.geojson"]
+Dir["2013*.geojson"]

@@ -349,7 +349,7 @@
       poster_footer.appendChild(div);
 
       var h3 = document.createElement("h3");
-      h3.innerHTML = "Review:";
+      h3.innerHTML = "Statistics:";
       div.appendChild(h3);
 
       var ul = document.createElement("ul");
@@ -373,9 +373,9 @@
     var dist = parseFloat(runs[runs.length - 1].dataset.runDistance);
     
     if(system == 'imperial'){
-      dist = (dist * 0.621371192).toFixed(2) + " miles";
+      dist = (dist * 0.621371192).toFixed(0) + " miles";
     } else {
-      dist = dist.toFixed(2) + " km";
+      dist = dist.toFixed(0) + " km";
     };
 
     return dist;
@@ -399,9 +399,9 @@
     var dist = Math.round(sum*100)/100;
 
     if(system == 'imperial'){
-      dist = (dist * 0.621371192).toFixed(2) + " miles";
+      dist = (dist * 0.621371192).toFixed(0) + " miles";
     } else {
-      dist = dist.toFixed(2) + " km";
+      dist = dist.toFixed(0) + " km";
     };
     
     return dist;
@@ -424,7 +424,7 @@
       totalDist += calcDist(p1, p2);
     }
 
-    return totalDist.toFixed(2);
+    return totalDist.toFixed(0);
   }
 
   function calcDist(p1, p2) {
