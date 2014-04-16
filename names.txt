@@ -1,0 +1,3 @@
+["Gram", "sprint", "track", "route", "bloc", "split", "club", "glory", "alpha", "screen", "high", "club", "group", "alive", "joy", "pace", "uplift", "hero", "work", "power", "hydro", "trans", "hub", "race"]
+
+words.repeated_permutation(2).to_a.map(&:join).map(&:downcase).uniq
