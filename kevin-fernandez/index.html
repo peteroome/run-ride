@@ -82,7 +82,7 @@
 
   div.run {
     display: inline-block;
-    margin: 0 302px 60px 0;
+    margin: 0 68px 120px 0;
     padding: 0;
   }
 
@@ -207,16 +207,14 @@
   // Set vars
   var athlete = {
     name: "Kevin Fernandez",
-    year: "2013",
-    rows: 5
+    year: "2013 & 2014",
+    rows: 9
   };
 
-  // var runFiles = ["20130318-181920-Walk.gpx.geojson", "20130325-185533-Walk.gpx.geojson", "20130327-202521-Walk.gpx.geojson", "20130328-184339-Walk.gpx.geojson", "20130404-211344-Walk.gpx.geojson", "20130405-193848-Walk.gpx.geojson", "20130408-195619-Walk.gpx.geojson", "20130409-192551-Walk.gpx.geojson", "20130411-204122-Walk.gpx.geojson", "20130420-021841-Ride.gpx.geojson"]
+  var runFiles = ["20130318-181920-Walk.gpx.geojson", "20130325-185533-Walk.gpx.geojson", "20130327-202521-Walk.gpx.geojson", "20130328-184339-Walk.gpx.geojson", "20130404-211344-Walk.gpx.geojson", "20130405-193848-Walk.gpx.geojson", "20130408-195619-Walk.gpx.geojson", "20130409-192551-Walk.gpx.geojson", "20130411-204122-Walk.gpx.geojson", "20130420-021841-Ride.gpx.geojson", "20131011-225510-Ride.gpx.geojson", "20131012-191457-Ride.gpx.geojson", "20131016-231601-Ride.gpx.geojson", "20131018-235002-Ride.gpx.geojson", "20131019-160220-Ride.gpx.geojson", "20131022-002322-Ride.gpx.geojson", "20131024-233751-Ride.gpx.geojson", "20131109-184256-Ride.gpx.geojson", "20131114-000701-Ride.gpx.geojson", "20131117-163951-Ride.gpx.geojson", "20131118-235627-Ride.gpx.geojson", "20131119-234529-Ride.gpx.geojson", "20131123-001410-Ride.gpx.geojson", "20131124-235449-Ride.gpx.geojson", "20131128-192731-Ride.gpx.geojson", "20131129-233038-Ride.gpx.geojson", "20131130-183444-Ride.gpx.geojson", "20131201-172020-Ride.gpx.geojson", "20131204-022859-Ride.gpx.geojson", "20131205-002808-Ride.gpx.geojson", "20131207-001543-Ride.gpx.geojson", "20131213-225052-Ride.gpx.geojson", "20131214-181100-Ride.gpx.geojson", "20131216-201315-Ride.gpx.geojson", "20131220-000325-Ride.gpx.geojson", "20131220-234109-Ride.gpx.geojson", "20131221-174531-Ride.gpx.geojson", "20131222-174237-Ride.gpx.geojson", "20131224-205444-Ride.gpx.geojson", "20131225-171411-Ride.gpx.geojson", "20131226-225800-Ride.gpx.geojson", "20131228-161831-Ride.gpx.geojson", "20131230-174727-Ride.gpx.geojson", "20140103-001006-Ride.gpx.geojson", "20140104-180658-Ride.gpx.geojson", "20140105-182748-Ride.gpx.geojson", "20140106-234813-Ride.gpx.geojson", "20140109-233259-Ride.gpx.geojson", "20140110-234404-Ride.gpx.geojson", "20140111-165910-Ride.gpx.geojson", "20140112-162456-Ride.gpx.geojson", "20140115-235126-Ride.gpx.geojson", "20140116-133604-Ride.gpx.geojson", "20140116-230219-Ride.gpx.geojson", "20140118-030609-Ride.gpx.geojson", "20140118-180654-Ride.gpx.geojson", "20140121-135629-Ride.gpx.geojson", "20140121-141208-Ride.gpx.geojson", "20140121-233841-Ride.gpx.geojson", "20140123-225530-Ride.gpx.geojson", "20140124-233705-Ride.gpx.geojson", "20140125-183729-Ride.gpx.geojson", "20140128-141149-Ride.gpx.geojson", "20140128-203323-Ride.gpx.geojson", "20140128-235057-Ride.gpx.geojson", "20140129-142905-Ride.gpx.geojson", "20140131-001946-Ride.gpx.geojson", "20140201-004807-Ride.gpx.geojson", "20140203-142536-Ride.gpx.geojson", "20140203-235351-Ride.gpx.geojson", "20140204-141842-Ride.gpx.geojson", "20140204-234927-Ride.gpx.geojson", "20140205-142637-Ride.gpx.geojson", "20140205-233443-Ride.gpx.geojson", "20140208-224938-Ride.gpx.geojson", "20140210-032658-Ride.gpx.geojson", "20140213-030334-Ride.gpx.geojson", "20140214-011909-Ride.gpx.geojson", "20140217-022551-Ride.gpx.geojson", "20140220-031117-Ride.gpx.geojson", "20140307-055053-Ride.gpx.geojson", "20140308-232424-Ride.gpx.geojson", "20140312-235727-Ride.gpx.geojson", "20140319-004001-Ride.gpx.geojson", "20140320-005053-Ride.gpx.geojson", "20140324-233912-Ride.gpx.geojson", "20140330-163223-Ride.gpx.geojson", "20140403-010252-Ride.gpx.geojson", "20140405-161037-Ride.gpx.geojson", "20140411-235351-Ride.gpx.geojson"];
 
-  var runFiles = ["20130318-181920-Walk.gpx.geojson", "20130325-185533-Walk.gpx.geojson", "20130327-202521-Walk.gpx.geojson", "20130328-184339-Walk.gpx.geojson", "20130404-211344-Walk.gpx.geojson", "20130405-193848-Walk.gpx.geojson", "20130408-195619-Walk.gpx.geojson", "20130409-192551-Walk.gpx.geojson", "20130411-204122-Walk.gpx.geojson", "20130420-021841-Ride.gpx.geojson", "20131011-225510-Ride.gpx.geojson", "20131012-191457-Ride.gpx.geojson", "20131016-231601-Ride.gpx.geojson", "20131018-235002-Ride.gpx.geojson", "20131019-160220-Ride.gpx.geojson", "20131022-002322-Ride.gpx.geojson", "20131024-233751-Ride.gpx.geojson", "20131109-184256-Ride.gpx.geojson", "20131114-000701-Ride.gpx.geojson", "20131117-163951-Ride.gpx.geojson", "20131118-235627-Ride.gpx.geojson", "20131119-234529-Ride.gpx.geojson", "20131123-001410-Ride.gpx.geojson", "20131124-235449-Ride.gpx.geojson", "20131128-192731-Ride.gpx.geojson", "20131129-233038-Ride.gpx.geojson", "20131130-183444-Ride.gpx.geojson", "20131201-172020-Ride.gpx.geojson", "20131204-022859-Ride.gpx.geojson", "20131205-002808-Ride.gpx.geojson", "20131207-001543-Ride.gpx.geojson", "20131213-225052-Ride.gpx.geojson", "20131214-181100-Ride.gpx.geojson", "20131216-201315-Ride.gpx.geojson", "20131220-000325-Ride.gpx.geojson", "20131220-234109-Ride.gpx.geojson", "20131221-174531-Ride.gpx.geojson", "20131222-174237-Ride.gpx.geojson", "20131224-205444-Ride.gpx.geojson", "20131225-171411-Ride.gpx.geojson", "20131226-225800-Ride.gpx.geojson", "20131228-161831-Ride.gpx.geojson", "20131230-174727-Ride.gpx.geojson"];
-
-  var width = 390,
-      height = 390;
+  var width = 290,
+      height = 290;
 
   var poster = document.getElementById("poster");
   var poster_footer = document.getElementById("footer");

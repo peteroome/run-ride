@@ -21,4 +21,5 @@ for f in ~/Desktop/d3/data/gpx/*.gpx; do $f ; done
 ### List of data files:
 cd into/directory/containting/geojson/files
 irb
+Dir["2012*.geojson"]
 Dir["2013*.geojson"]
