@@ -59,7 +59,7 @@
     /*stroke: #1c73b6;*/
 
     /* Yellow */
-    stroke: #ec7a24;
+    stroke: #ec5524;
 
     /* Orange */
     /*stroke: #ed4520;*/
@@ -80,9 +80,13 @@
     /*stroke: #ffd900;*/
   }
 
+  .race .arc {
+    stroke: #fff;
+  }
+
   div.run {
     display: inline-block;
-    margin: 0 51px 50px 0;
+    margin: 0 51px 53px 0;
     padding: 0;
   }
 
@@ -113,6 +117,7 @@
     font-size: 6em;
     line-height: 100%;
     margin: 0;
+    width: 504px;
   }
 
   h3 {
@@ -121,6 +126,27 @@
     line-height: 135%;
     margin: 0 0 15px;
     text-transform: uppercase;
+  }
+
+  h4 {
+    font-size: 2.1em;
+    color: #fff;
+    position: absolute;
+  }
+
+  h4.one {
+    top: 2065px;
+    right: 530px;
+  }
+
+  h4.two {
+    top: 2370px;
+    left: 1100px;
+  }
+
+  h4.three {
+    top: 4480px;
+    left: 1685px;
   }
 
   .statsHolder:last-child h3 {
@@ -195,7 +221,10 @@
 </head>
 <body>
   <div id="poster">
-    <h1>Manchester Marathon 2014</h1>
+    <h1>Run</h1>
+    <h4 class="one">00:39:47</h4>
+    <h4 class="two">01:28:57</h4>
+    <h4 class="three">03:16:43</h4>
     <div id="footer"></div>
   </div>
 
@@ -206,8 +235,6 @@
 
   // Set vars
   var athlete = {
-    name: "John Fagan",
-    year: "2013 & 2014",
     rows: 11
   };
 
@@ -261,6 +288,12 @@
       .attr("class", "run-svg" )
       .attr("width", width)
       .attr("height", height);
+   
+    if(runDiv.dataset.runDate == "2013-11-17T10:00:29.000Z" 
+      || runDiv.dataset.runDate == "2013-11-24T11:00:06.000Z" 
+      || runDiv.dataset.runDate == "2014-04-06T08:00:16.000Z"){
+      svg.attr("class", "race")
+    }
 
     svg.append("path")
       .datum(runData)
@@ -336,11 +369,11 @@
       poster_footer.appendChild(div);
 
       var h3 = document.createElement("h3");
-      h3.innerHTML = "Athlete:";
+      h3.innerHTML = "&nbsp;";
       div.appendChild(h3);
 
       var h2 = document.createElement("h2");
-      h2.innerHTML = athlete["name"];
+      h2.innerHTML = "The Triple";
       div.appendChild(h2);
 
       // Stats
@@ -349,7 +382,7 @@
       poster_footer.appendChild(div);
 
       var h3 = document.createElement("h3");
-      h3.innerHTML = "Review:";
+      h3.innerHTML = "Summary:";
       div.appendChild(h3);
 
       var ul = document.createElement("ul");
