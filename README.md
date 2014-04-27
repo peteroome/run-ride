@@ -11,3 +11,7 @@ Css
 
 ## Starting it up…
 `$ python -m SimpleHTTPServer`
+
+## Example
+In your browser visit…
+`http://localhost:8000/example.html`
