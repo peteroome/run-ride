@@ -25,29 +25,8 @@
     position: relative;
     text-align: left;
 
-    /* Blue */
-    /*background: #0d2833;*/
-
     /* Yellow */
     background: #f9b914; 
-    
-    /* Orange */
-    /*background: #2b2b2b;*/
-
-    /* Grey */
-    /*background: #23333d;*/
-
-    /* Night */
-    /*background: #160a47;*/
-
-    /* Black/Yellow */
-    /*background: #333;*/
-
-    /* Pink/Purple */
-    /*background: #3f0082;*/
-
-    /* Purple/Yellow */
-    /*background: #3f0082;*/
   }
 
   .arc {
@@ -55,30 +34,8 @@
     stroke-width: 5px;
     stroke-linecap: round;
 
-    /* Blue */
-    /*stroke: #00b1fa;*/
-
-    /* Yellow */
-    /*stroke: #ec5524;*/
-
     /* Orange */
     stroke: #fe5902;
-    /*stroke: #ff5b00;*/
-
-    /* Grey */
-    /*stroke: #eaff00;*/
-
-    /* Night */
-    /*stroke: #f2671f;*/
-
-    /* Black/Yellow */
-    /*stroke: #ffd900;*/
-
-    /* Pink/Purple */
-    /*stroke: #ff68fe;*/
-
-    /* Purple/Yellow */
-    /*stroke: #ffd900;*/
   }
 
   div.run {
@@ -269,9 +226,6 @@
 
     // Sort them
     sortMaps();
-
-    // Stats
-    appendStats();
   }
 
   function sortMaps(){
@@ -306,118 +260,6 @@
     })
 
     return runs;
-  }
-
-  function appendStats(){
-    var runDivs = document.getElementsByClassName("run");
-        
-    if(runDivs.length == runFiles.length){
-      var runs = sortedRunsArray(),
-          total = setImperial(overallDistance()),
-          avg =   setImperial(averageDistance()),
-          min =   setImperial(minDistance()),
-          max =   setImperial(maxDistance());
-
-      // Year: 2013
-      var div = document.createElement("div");
-      div.className = "statsHolder";
-      poster_footer.appendChild(div);
-
-      var h3 = document.createElement("h3");
-      h3.innerHTML = "Year:";
-      div.appendChild(h3);
-
-      var h2 = document.createElement("h2");
-      h2.innerHTML = athlete["year"];
-      div.appendChild(h2);
-
-      var div = document.createElement("div");
-      div.className = "statsHolder";
-      poster_footer.appendChild(div);
-
-      var h3 = document.createElement("h3");
-      h3.innerHTML = "Athlete:";
-      div.appendChild(h3);
-
-      var h2 = document.createElement("h2");
-      h2.innerHTML = athlete["name"];
-      div.appendChild(h2);
-
-      // Stats
-      var div = document.createElement("div");
-      div.className = "statsHolder";
-      poster_footer.appendChild(div);
-
-      var h3 = document.createElement("h3");
-      h3.innerHTML = "Statistics:";
-      div.appendChild(h3);
-
-      var ul = document.createElement("ul");
-      ul.className = "stats";
-      div.appendChild(ul);
-
-      var li = document.createElement("li");
-      li.innerHTML = "Total: " + setString(total, "imperial");
-      ul.appendChild(li);
-
-      var li = document.createElement("li");
-      li.innerHTML = "Minimum: " + setString(min, "imperial");
-      ul.appendChild(li);
-
-      var li = document.createElement("li");
-      li.innerHTML = "Average: " + setString(avg, "imperial");
-      ul.appendChild(li);
-
-      var li = document.createElement("li");
-      li.innerHTML = "Maximum: " + setString(max, "imperial");
-      ul.appendChild(li);
-    };
-  }
-
-  function setString(number, system){
-    var system = typeof(system) !== 'undefined' ? system : 'metric',
-        end = "";
-
-    if(system == 'imperial'){
-      end = " miles";
-    } else {
-      end = " km";
-    }
-
-    return number + end;
-  }
-
-  function setImperial(number){
-    return (number * 0.621371192).toFixed(2);
-  }
-
-  function maxDistance(){
-    var runs = sortedRunsArray("distance");
-    return parseFloat(runs[runs.length - 1].dataset.runDistance);
-  }
-
-  function minDistance(){
-    var runs = sortedRunsArray("distance");
-    return parseFloat(runs[0].dataset.runDistance);
-  }
-
-  function overallDistance(){
-    var runs = sortedRunsArray("distance"),
-        sum = 0;
-
-    for (var i = 0; i < runs.length; ++i) {
-      var distance = parseFloat(runs[i].dataset.runDistance);
-      sum += distance;
-    };
-    
-    return Math.round(sum*100)/100;
-  }
-
-  function averageDistance(){
-    var runs = sortedRunsArray("distance"),
-        total = overallDistance();
-
-    return Math.round(total/runs.length*100)/100;
   }
 
   function totalDistance(coords){
