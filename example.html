@@ -14,40 +14,97 @@
   /* A2: 4961x7016 */
   /* A3: 3508x4961 */
   #poster {
-    width: 3508px; 
-    height: 4961px;
+    padding: 100px 175px;
+
+    /* Minus the padding */
+    width: 3158px;
+    height: 4761px;
+    
     margin: 0 auto;
     display: block;
     position: relative;
-    text-align: center;
-    background: #0d2833;
-    /*background: #f9b914;*/ 
+    text-align: left;
+
+    /* Blue */
+    /*background: #0d2833;*/
+
+    /* Yellow */
+    background: #f9b914; 
+    
+    /* Orange */
+    /*background: #2b2b2b;*/
+
+    /* Grey */
+    /*background: #23333d;*/
+
+    /* Night */
+    /*background: #160a47;*/
+
+    /* Black/Yellow */
+    /*background: #333;*/
+
+    /* Pink/Purple */
+    /*background: #3f0082;*/
+
+    /* Purple/Yellow */
+    /*background: #3f0082;*/
   }
 
   .arc {
     fill: none;
     stroke-width: 5px;
     stroke-linecap: round;
-    stroke: #1c73b6;
-    /*stroke: #ec7a24;*/
+
+    /* Blue */
+    /*stroke: #00b1fa;*/
+
+    /* Yellow */
+    /*stroke: #ec5524;*/
+
+    /* Orange */
+    stroke: #fe5902;
+    /*stroke: #ff5b00;*/
+
+    /* Grey */
+    /*stroke: #eaff00;*/
+
+    /* Night */
+    /*stroke: #f2671f;*/
+
+    /* Black/Yellow */
+    /*stroke: #ffd900;*/
+
+    /* Pink/Purple */
+    /*stroke: #ff68fe;*/
+
+    /* Purple/Yellow */
+    /*stroke: #ffd900;*/
   }
 
-  div {
+  div.run {
     display: inline-block;
-    margin: 0 20px 80px;
+    margin: 0 36px 115px 0;
     padding: 0;
+  }
+
+  div.run.rowEnd {  
+    margin-right: 0;
   }
 
   text {
     font-size: 1.8em;
   }
 
+  h1, h2, h3,
+  #footer ul li {
+    color: #fff;
+  }
+
   h1 {
     text-align: left;
-    font-size: 12em;
+    font-size: 11em;
     line-height: 150%;
-    margin: 100px 175px 110px;
-    color: #fff;
+    margin: 0 0 80px;
     display: inline-block;
     width: 3158px;
   }
@@ -56,7 +113,6 @@
     text-align: left;
     font-size: 6em;
     line-height: 100%;
-    color: #fff;
     margin: 0;
   }
 
@@ -64,7 +120,6 @@
     text-align: left;
     font-size: 2.1em;
     line-height: 135%;
-    color: #fff;
     margin: 0 0 15px;
     text-transform: uppercase;
   }
@@ -88,8 +143,8 @@
     display: block;
     position: absolute;
     bottom: 200px;
-    left: 150px;
-    right: 150px;
+    left: 175px;
+    right: 175px;
     margin: 0;
     text-align: left; 
   }
@@ -110,7 +165,6 @@
     float: left;
     width: 400px;
     font-weight: bold;
-    color: #fff;
   }
 
   #footer ul li:nth-child(odd) {
@@ -152,28 +206,37 @@
   <script>
 
   // Set vars
-  var runs = ["2013-06-25-1819.gpx.geojson", "2013-07-15-1757.gpx.geojson", "2013-09-10-1851.gpx.geojson", "2013-09-12-1839.gpx.geojson", "2013-10-01-0648.gpx.geojson", "2013-10-03-0647.gpx.geojson", "2013-10-07-0715.gpx.geojson", "2013-10-09-0704.gpx.geojson", "2013-10-14-0705.gpx.geojson", "2013-10-15-1607.gpx.geojson", "2013-10-17-1640.gpx.geojson", "2013-10-22-0703.gpx.geojson", "2013-10-29-0701.gpx.geojson", "2013-11-04-0703.gpx.geojson", "2013-11-08-0710.gpx.geojson", "2013-11-12-0701.gpx.geojson", "2013-11-19-0702.gpx.geojson", "2013-12-07-1203.gpx.geojson", "2013-12-23-0759.gpx.geojson", "2013-12-24-0855.gpx.geojson", "2013-12-28-1200.gpx.geojson", "2013-12-29-0951.gpx.geojson", "2013-12-31-1036.gpx.geojson", "20130302-135810-Ride.gpx.geojson", "20130316-090035-Ride.gpx.geojson", "20130406-092005-Ride.gpx.geojson", "20130407-085909-Ride.gpx.geojson", "20130408-162556-Ride.gpx.geojson", "20130409-162721-Ride.gpx.geojson", "20130410-162424-Ride.gpx.geojson", "20130413-072211-Ride.gpx.geojson", "20130414-085310-Ride.gpx.geojson", "20130415-163346-Ride.gpx.geojson", "20130419-163301-Ride.gpx.geojson", "20130420-072630-Ride.gpx.geojson", "20130504-110849-Ride.gpx.geojson", "20130506-080333-Ride.gpx.geojson", "20130508-065841-Ride.gpx.geojson", "20130508-163122-Ride.gpx.geojson", "20130519-085701-Ride.gpx.geojson", "20130602-113548-Ride.gpx.geojson", "20130611-131745-Run.gpx.geojson", "20130625-172056-Ride.gpx.geojson", "20130625-180310-Ride.gpx.geojson", "20130701-164233-Ride.gpx.geojson", "20130702-175443-Run.gpx.geojson", "20130708-175837-Ride.gpx.geojson", "20130708-180741-Run.gpx.geojson", "20130709-174932-Run.gpx.geojson", "20130710-164102-Ride.gpx.geojson", "20130712-183013-Run.gpx.geojson", "20130713-065417-Ride.gpx.geojson", "20130715-171806-Ride.gpx.geojson", "20130721-101113-Ride.gpx.geojson", "20130722-183813-Run.gpx.geojson", "20130724-192606-Run.gpx.geojson", "20130726-171728-Ride.gpx.geojson", "20130729-180015-Run.gpx.geojson", "20130801-185807-Ride.gpx.geojson", "20130803-054758-Ride.gpx.geojson", "20130805-181031-Run.gpx.geojson", "20130808-180441-Run.gpx.geojson", "20130819-185157-Run.gpx.geojson", "20130820-175120-Ride.gpx.geojson", "20130827-174035-Ride.gpx.geojson", "20130828-183601-Run.gpx.geojson", "20130901-065608-Ride.gpx.geojson", "20130902-184834-Run.gpx.geojson"];
+  var athlete = {
+    name: "Peter Roome",
+    year: "2013",
+    rows: 12
+  };
 
-  var width = 350,
-      height = 360;
+  var runFiles = ["20120102-102715-Ride.gpx.geojson", "20120107-102417-Ride.gpx.geojson", "20120108-111529-Ride.gpx.geojson", "20120111-181418-Ride.gpx.geojson", "20120115-104001-Ride.gpx.geojson", "20120121-102111-Ride.gpx.geojson", "20120127-091231-Ride.gpx.geojson", "20120128-100057-Ride.gpx.geojson", "20120502-173238-Ride.gpx.geojson", "20120505-135612-Ride.gpx.geojson", "20120510-153425-Ride.gpx.geojson", "20120513-095624-Ride.gpx.geojson", "20120516-171856-Ride.gpx.geojson", "20120522-163142-Ride.gpx.geojson", "20120523-171422-Ride.gpx.geojson", "20120526-133412-Ride.gpx.geojson", "20120529-172630-Ride.gpx.geojson", "20120604-125730-Ride.gpx.geojson", "20120610-140150-Ride.gpx.geojson", "20120612-171251-Ride.gpx.geojson", "20120614-125743-Ride.gpx.geojson", "20120616-114859-Ride.gpx.geojson", "20120617-170512-Ride.gpx.geojson", "20120619-093828-Ride.gpx.geojson", "20120620-170929-Ride.gpx.geojson", "20120623-052858-Ride.gpx.geojson", "20120625-162832-Ride.gpx.geojson", "20120627-171824-Ride.gpx.geojson", "20120629-130806-Ride.gpx.geojson", "20120629-174320-Ride.gpx.geojson", "20120630-180311-Ride.gpx.geojson", "20120704-172912-Ride.gpx.geojson", "20120705-162058-Ride.gpx.geojson", "20120707-110918-Ride.gpx.geojson", "20120708-163328-Ride.gpx.geojson", "20120709-171502-Ride.gpx.geojson", "20120711-171959-Ride.gpx.geojson", "20120717-163030-Ride.gpx.geojson", "20120718-170054-Ride.gpx.geojson", "20120721-093135-Ride.gpx.geojson", "20120723-172414-Ride.gpx.geojson", "20120724-164743-Ride.gpx.geojson", "20120725-155804-Ride.gpx.geojson", "20120726-164115-Ride.gpx.geojson", "20120726-192249-Ride.gpx.geojson", "20120727-170703-Ride.gpx.geojson", "20120728-093300-Ride.gpx.geojson", "20120728-123148-Ride.gpx.geojson", "20120728-134701-Ride.gpx.geojson", "20120728-142705-Ride.gpx.geojson", "20120729-104902-Ride.gpx.geojson", "20120730-172146-Ride.gpx.geojson", "20120801-172805-Ride.gpx.geojson", "20120803-172652-Ride.gpx.geojson", "20120805-105043-Ride.gpx.geojson", "20120806-171841-Ride.gpx.geojson", "20120807-171321-Ride.gpx.geojson", "20120809-164241-Ride.gpx.geojson", "20120811-105338-Ride.gpx.geojson", "20120813-172916-Ride.gpx.geojson", "20120814-170846-Ride.gpx.geojson", "20120817-181748-Ride.gpx.geojson", "20120818-090405-Ride.gpx.geojson", "20120818-144811-Ride.gpx.geojson", "20120819-112019-Ride.gpx.geojson", "20120820-173012-Ride.gpx.geojson", "20120822-170547-Ride.gpx.geojson", "20120825-104703-Ride.gpx.geojson", "20120826-161050-Ride.gpx.geojson", "20120828-173342-Ride.gpx.geojson", "20120829-165416-Ride.gpx.geojson", "20120831-143918-Ride.gpx.geojson", "20120901-102050-Ride.gpx.geojson", "20120901-104029-Ride.gpx.geojson", "20120902-105329-Ride.gpx.geojson", "20120902-133544-Ride.gpx.geojson", "20120903-172409-Ride.gpx.geojson", "20120904-155918-Ride.gpx.geojson", "20120905-171317-Ride.gpx.geojson", "20120906-103133-Ride.gpx.geojson", "20120909-092059-Ride.gpx.geojson", "20120910-173014-Ride.gpx.geojson", "20120912-080810-Ride.gpx.geojson", "20120913-093127-Ride.gpx.geojson", "20120914-172851-Ride.gpx.geojson", "20120915-114507-Ride.gpx.geojson", "20120916-074333-Ride.gpx.geojson", "20120917-172428-Ride.gpx.geojson", "20120918-133330-Ride.gpx.geojson", "20120919-164940-Ride.gpx.geojson", "20120922-091936-Ride.gpx.geojson", "20120922-162348-Ride.gpx.geojson", "20120926-140323-Ride.gpx.geojson", "20120928-113653-Ride.gpx.geojson", "20120930-091713-Ride.gpx.geojson", "20121002-102257-Ride.gpx.geojson", "20121003-170541-Ride.gpx.geojson", "20121005-131646-Ride.gpx.geojson", "20121006-101912-Ride.gpx.geojson", "20121010-144438-Ride.gpx.geojson", "20121012-103803-Ride.gpx.geojson", "20121013-080533-Ride.gpx.geojson", "20121014-154006-Ride.gpx.geojson", "20121016-152442-Ride.gpx.geojson", "20121017-163319-Ride.gpx.geojson", "20121020-080629-Ride.gpx.geojson", "20121021-112317-Ride.gpx.geojson", "20121023-172624-Ride.gpx.geojson", "20121024-171716-Ride.gpx.geojson", "20121027-080643-Ride.gpx.geojson", "20121031-131643-Ride.gpx.geojson", "20121103-095929-Ride.gpx.geojson", "20121105-145843-Ride.gpx.geojson", "20121106-182200-Ride.gpx.geojson", "20121108-122704-Ride.gpx.geojson", "20121109-124045-Ride.gpx.geojson", "20121110-090940-Ride.gpx.geojson", "20121111-103628-Ride.gpx.geojson", "20121113-182509-Ride.gpx.geojson", "20121114-183350-Ride.gpx.geojson", "20121117-091248-Ride.gpx.geojson", "20121120-182252-Ride.gpx.geojson", "20121123-131156-Ride.gpx.geojson", "20121125-124116-Ride.gpx.geojson", "20121128-182848-Ride.gpx.geojson", "20121129-182948-Ride.gpx.geojson", "20121201-105708-Ride.gpx.geojson", "20121204-182510-Ride.gpx.geojson", "20121205-183708-Ride.gpx.geojson", "20121209-092010-Ride.gpx.geojson", "20121211-182139-Ride.gpx.geojson", "20121212-091834-Ride.gpx.geojson", "20121215-113820-Ride.gpx.geojson", "20121216-111925-Ride.gpx.geojson", "20121218-181726-Ride.gpx.geojson", "20121222-131248-Ride.gpx.geojson", "20121223-100822-Ride.gpx.geojson", "20121228-112547-Ride.gpx.geojson", "20121230-093728-Ride.gpx.geojson"];
+
+  var width = 230,
+      height = 230;
 
   var poster = document.getElementById("poster");
   var poster_footer = document.getElementById("footer");
   var runInfo = [];
 
   // Add Runs
-  for (var i=0;i<runs.length;i++){
-    d3.json("example-data/"+runs[i], function(error, run) {
-      drawRun(run); //load the json data
+  for (var i=0;i<runFiles.length;i++){
+    d3.json("./example-data/"+runFiles[i], function(error, run) {
+      var time = run.features[0].properties.time;
+      var distance = totalDistance(run.features[0].geometry.coordinates);
+
+      drawRun(run, distance, time); //load the json data
     });
   };
 
   // Functions
-  function drawRun(runData, i){
+  function drawRun(runData, distance, time){
     var runDiv = document.createElement("div");
     runDiv.className = "run";
-    runDiv.dataset.runDate = runData.features[0].properties.time;
-    runDiv.dataset.runDistance = totalDistance(runData).toFixed(2);
+    runDiv.dataset.runDistance = distance
+    runDiv.dataset.runDate = time;
 
     poster.appendChild(runDiv);
 
@@ -204,6 +267,7 @@
       .attr("class", "arc")
       .attr("d", path);
 
+    // Sort them
     sortMaps();
 
     // Stats
@@ -211,10 +275,17 @@
   }
 
   function sortMaps(){
-    var runs = sortedRunsArray();
-    runs.forEach(function(run, index) {
-      poster.appendChild(run);
-    });
+    var runDivs = document.getElementsByClassName("run");
+
+    if(runDivs.length == runFiles.length){
+      var runs = sortedRunsArray();
+      runs.forEach(function(run, index) {
+        if((index + 1) % athlete["rows"] == 0){
+          run.className += " rowEnd";
+        }
+        poster.appendChild(run);
+      });
+    };
   }
 
   function sortedRunsArray(sort){
@@ -237,25 +308,15 @@
     return runs;
   }
 
-  function sortMaps(){
-    var runs = sortedRunsArray();
-    runs.forEach(function(run, index) {
-      poster.appendChild(run);
-      var string = "Fig. " + (index + 1);
-      d3.selectAll('div.run[data-run-date="' + run.dataset.runDate + '"]')
-        .select('text')
-        .text(string)
-        .attr("stroke", "#000");
-    });
-  }
-
   function appendStats(){
-    var runs = sortedRunsArray();
-    if(runs.length == 68){
-      var total = overallDistance(),
-          avg = averageDistance(),
-          min = minDistance(),
-          max = maxDistance();
+    var runDivs = document.getElementsByClassName("run");
+        
+    if(runDivs.length == runFiles.length){
+      var runs = sortedRunsArray(),
+          total = setImperial(overallDistance()),
+          avg =   setImperial(averageDistance()),
+          min =   setImperial(minDistance()),
+          max =   setImperial(maxDistance());
 
       // Year: 2013
       var div = document.createElement("div");
@@ -267,10 +328,9 @@
       div.appendChild(h3);
 
       var h2 = document.createElement("h2");
-      h2.innerHTML = "2013";
+      h2.innerHTML = athlete["year"];
       div.appendChild(h2);
 
-      // Athlete: Peter Roome
       var div = document.createElement("div");
       div.className = "statsHolder";
       poster_footer.appendChild(div);
@@ -280,7 +340,7 @@
       div.appendChild(h3);
 
       var h2 = document.createElement("h2");
-      h2.innerHTML = "Peter Roome";
+      h2.innerHTML = athlete["name"];
       div.appendChild(h2);
 
       // Stats
@@ -289,7 +349,7 @@
       poster_footer.appendChild(div);
 
       var h3 = document.createElement("h3");
-      h3.innerHTML = "Review:";
+      h3.innerHTML = "Statistics:";
       div.appendChild(h3);
 
       var ul = document.createElement("ul");
@@ -297,31 +357,48 @@
       div.appendChild(ul);
 
       var li = document.createElement("li");
-      li.innerHTML = "Total: " + total + "km";
+      li.innerHTML = "Total: " + setString(total, "imperial");
       ul.appendChild(li);
 
       var li = document.createElement("li");
-      li.innerHTML = "Minimum: " + min + "km";
+      li.innerHTML = "Minimum: " + setString(min, "imperial");
       ul.appendChild(li);
 
       var li = document.createElement("li");
-      li.innerHTML = "Average: " + avg + "km";
+      li.innerHTML = "Average: " + setString(avg, "imperial");
       ul.appendChild(li);
 
       var li = document.createElement("li");
-      li.innerHTML = "Maximum: " + max + "km";
+      li.innerHTML = "Maximum: " + setString(max, "imperial");
       ul.appendChild(li);
     };
   }
 
+  function setString(number, system){
+    var system = typeof(system) !== 'undefined' ? system : 'metric',
+        end = "";
+
+    if(system == 'imperial'){
+      end = " miles";
+    } else {
+      end = " km";
+    }
+
+    return number + end;
+  }
+
+  function setImperial(number){
+    return (number * 0.621371192).toFixed(2);
+  }
+
   function maxDistance(){
     var runs = sortedRunsArray("distance");
-    return parseFloat(runs[runs.length - 1].dataset.runDistance)
+    return parseFloat(runs[runs.length - 1].dataset.runDistance);
   }
 
   function minDistance(){
     var runs = sortedRunsArray("distance");
-    return parseFloat(runs[0].dataset.runDistance)
+    return parseFloat(runs[0].dataset.runDistance);
   }
 
   function overallDistance(){
@@ -331,9 +408,9 @@
     for (var i = 0; i < runs.length; ++i) {
       var distance = parseFloat(runs[i].dataset.runDistance);
       sum += distance;
-    }
+    };
     
-    return Math.round(sum*100)/100;;
+    return Math.round(sum*100)/100;
   }
 
   function averageDistance(){
@@ -343,8 +420,7 @@
     return Math.round(total/runs.length*100)/100;
   }
 
-  function totalDistance(data){
-    var coords = data.features[0].geometry.coordinates;
+  function totalDistance(coords){
     var totalDist = 0;
 
     for (var i = 0; i < (coords.length-1); ++i) {
@@ -354,7 +430,7 @@
       totalDist += calcDist(p1, p2);
     }
 
-    return totalDist;
+    return totalDist.toFixed(2);
   }
 
   function calcDist(p1, p2) {

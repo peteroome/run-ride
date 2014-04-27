@@ -14,6 +14,10 @@ $ cd /home/somedir
 $ python -m SimpleHTTPServer
 
 ### Convert to geojson, exmaples
+require 'active_support/inflector'
+require 'active_support/core_ext'
+Dir.glob("*.gpx").collect {|filename| File.rename(filename, filename.parameterize.underscore.gpx)}
+
 for f in myfolder/*; do TMXResolutionTool $f <otherparameters> ; done
 for f in ~/Desktop/d3/data/gpx/*.gpx; do togeojson $f > $f.geojson ; done
 for f in ~/Desktop/d3/data/gpx/*.gpx; do $f ; done 
@@ -23,3 +27,4 @@ cd into/directory/containting/geojson/files
 irb
 Dir["2012*.geojson"]
 Dir["2013*.geojson"]
+

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+  <style>
+
+  body {
+    margin: 200px auto;
+    padding: 0;
+    width: 3508px; 
+    height: 4961px;
+    font-family: "Helvetica neue";
+  }
+
+  /* A2: 4961x7016 */
+  /* A3: 3508x4961 */
+  #poster {
+    padding: 100px 175px;
+
+    /* Minus the padding */
+    width: 3158px;
+    height: 4761px;
+    
+    margin: 0 auto;
+    display: block;
+    position: relative;
+    text-align: left;
+
+    /* Grey */
+    background: #23333d;
+  }
+
+  .arc {
+    fill: none;
+    stroke-width: 6px;
+    stroke-linecap: round;
+
+    /* Blue */
+    /*stroke: #1c73b6;*/
+
+    /* Yellow */
+    /*stroke: #ec7a24;*/
+
+    /* Orange */
+    /*stroke: #ed4520;*/
+    stroke: #ff5b00;
+
+    /* Grey */
+    /*stroke: #eaff00;*/
+
+    /* Night */
+    /*stroke: #f2671f;*/
+
+    /* Black/Yellow */
+    /*stroke: #ffd900;*/
+
+    /* Pink/Purple */
+    /*stroke: #ff66cc;*/
+
+    /* Purple/Yellow */
+    /*stroke: #ffd900;*/
+  }
+
+  div.run {
+    display: inline-block;
+    margin: 0 83px 140px 0;
+    padding: 0;
+  }
+
+  div.run.rowEnd {  
+    margin-right: 0;
+  }
+
+  text {
+    font-size: 1.8em;
+  }
+
+  h1, h2, h3,
+  #footer ul li {
+    color: #fff;
+  }
+
+  h1 {
+    text-align: left;
+    font-size: 11em;
+    line-height: 150%;
+    margin: 0 0 80px;
+    display: inline-block;
+    width: 3158px;
+  }
+
+  h2 {
+    text-align: left;
+    font-size: 6em;
+    line-height: 100%;
+    margin: 0;
+  }
+
+  h3 {
+    text-align: left;
+    font-size: 2.1em;
+    line-height: 135%;
+    margin: 0 0 15px;
+    text-transform: uppercase;
+  }
+
+  .statsHolder:last-child h3 {
+    margin-bottom: 20px;
+  }
+
+  .statsHolder {
+    display: inline-block;
+    margin: 0 70px 0 0;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .statsHolder:last-child {
+    margin: 0;
+  }
+
+  #footer {
+    display: block;
+    position: absolute;
+    bottom: 200px;
+    left: 175px;
+    right: 175px;
+    margin: 0;
+    text-align: left; 
+  }
+
+  #footer ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    float: right;
+  }
+
+  #footer ul li {
+    line-height: 132%;
+    text-align: left;
+    font-size: 2.1em;
+    display: inline-block;
+    margin: 0;
+    float: left;
+    width: 400px;
+    font-weight: bold;
+  }
+
+  #footer ul li:nth-child(odd) {
+    clear: both;
+  }
+
+  #footer ul li:nth-child(even) {
+    width: auto;
+  }
+
+  svg.run-stats {
+    width: 701px;
+    display: inline-block;
+    height: 44px;
+    padding: 1px 0 0;
+  }
+
+  .run-stats text {
+    font-style: normal;
+    font-size: 2em;
+  }
+
+  p {
+    margin: 0 0 5px;
+    line-height: 135%;
+  }
+
+  </style>
+</head>
+<body>
+  <div id="poster">
+    <h1>Ride</h1>
+    <div id="footer"></div>
+  </div>
+
+  <!-- Javascript -->
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://d3js.org/topojson.v1.min.js"></script>
+  <script>
+
+  // Set vars
+  var athlete = {
+    name: "John Beynon",
+    year: "2013 & 2014",
+    rows: 7
+  };
+
+  var runFiles = ["01_04_2013_a_real_run_an_actual_real_run_gpx.gpx.geojson", "03_12_2013_guildford_surrey_united_kingdom_gpx.gpx.geojson", "04_03_2014_guildford_surrey_united_kingdom_gpx.gpx.geojson", "05_04_2013_guildford_surrey_united_kingdom_gpx.gpx.geojson", "05_06_2013_kyan_office_ride_1_gpx.gpx.geojson", "07_08_2013_guildford_surrey_united_kingdom_gpx.gpx.geojson", "09_02_2014_guildford_surrey_united_kingdom_gpx.gpx.geojson", "09_03_2013_guildford_surrey_united_kingdom_gpx.gpx.geojson", "09_09_2012_guildford_surrey_united_kingdom_gpx.gpx.geojson", "10_07_2013_guildford_surrey_united_kingdom_gpx.gpx.geojson", "13_05_2013_guildford_surrey_united_kingdom_gpx.gpx.geojson", "14_05_2013_guildford_surrey_united_kingdom_gpx.gpx.geojson", "15_08_2013_guildford_surrey_united_kingdom_gpx.gpx.geojson", "15_10_2013_guildford_surrey_united_kingdom_gpx.gpx.geojson", "15_11_2013_guildford_surrey_united_kingdom_gpx.gpx.geojson", "16_02_2014_guildford_surrey_united_kingdom_gpx.gpx.geojson", "16_05_2013_guildford_surrey_united_kingdom_gpx.gpx.geojson", "17_05_2013_guildford_surrey_united_kingdom_gpx.gpx.geojson", "17_07_2013_guildford_surrey_united_kingdom_gpx.gpx.geojson", "18_02_2014_guildford_surrey_united_kingdom_gpx.gpx.geojson", "18_08_2013_1_gpx.gpx.geojson", "18_08_2013_gpx.gpx.geojson", "19_01_2014_guildford_surrey_united_kingdom_gpx.gpx.geojson", "21_09_2013_yeovil_ba22_uk_england_united_kingdom_gpx.gpx.geojson", "22_04_2014_guildford_surrey_united_kingdom_gpx.gpx.geojson", "23_04_2013_long_er_ride_to_work_gpx.gpx.geojson", "23_04_2014_guildford_surrey_united_kingdom_gpx.gpx.geojson", "24_05_2013_guildford_surrey_united_kingdom_gpx.gpx.geojson", "24_06_2013_guildford_surrey_united_kingdom_gpx.gpx.geojson", "24_12_2013_guildford_surrey_united_kingdom_gpx.gpx.geojson", "25_05_2013_guildford_surrey_united_kingdom_gpx.gpx.geojson", "26_01_2014_guildford_surrey_united_kingdom_gpx.gpx.geojson", "28_01_2014_guildford_surrey_united_kingdom_gpx.gpx.geojson", "28_09_2013_guildford_surrey_united_kingdom_gpx.gpx.geojson", "30_04_2013_work_via_newlands_corner_gpx.gpx.geojson", "afan_valley_mountain_biking_gpx.gpx.geojson", "birthday_run_gpx.gpx.geojson", "boxhill_twice_gpx.gpx.geojson", "evans_woking_sportive_gpx.gpx.geojson", "first_attempt_at_half_marathon_distance_gpx.gpx.geojson", "getfitbootcamp_river_run_gpx.gpx.geojson", "godalming_10k_gpx.gpx.geojson", "half_distance_training_ride_pre_ride100_gpx.gpx.geojson", "hogsback_road_race_gpx.gpx.geojson", "lunch_run_pacing_to_5_20_kms_gpx.gpx.geojson", "morning_run_gpx.gpx.geojson", "mostly_repeating_the_evans_woking_sportive_gpx.gpx.geojson", "nice_to_be_out_gpx.gpx.geojson", "pre_brekky_reccy_ride_of_the_hills_of_ride_100_gpx.gpx.geojson", "ride100_gpx.gpx.geojson", "saw_a_lot_of_surrey_today_training_for_ride100_gpx.gpx.geojson", "team_garmin_sharp_ride_out_2013_gpx.gpx.geojson"];
+
+  var width = 380,
+      height = 380;
+
+  var poster = document.getElementById("poster");
+  var poster_footer = document.getElementById("footer");
+  var runInfo = [];
+
+  // Add Runs
+  for (var i=0;i<runFiles.length;i++){
+    d3.json("./data/"+runFiles[i], function(error, run) {
+      var time = run.features[0].properties.time;
+      var distance = totalDistance(run.features[0].geometry.coordinates);
+
+      drawRun(run, distance, time); //load the json data
+    });
+  };
+
+  // Functions
+  function drawRun(runData, distance, time){
+    var runDiv = document.createElement("div");
+    runDiv.className = "run";
+    runDiv.dataset.runDistance = distance
+    runDiv.dataset.runDate = time;
+
+    poster.appendChild(runDiv);
+
+    var projection = d3.geo.mercator()
+        .scale(1)
+        .translate([0, 0]);
+
+    var path = d3.geo.path()
+        .projection(projection);
+
+    // Compute the bounds of a feature of interest, then derive scale & translate.
+    var b = path.bounds(runData),
+        s = 0.95 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height),
+        t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2];
+
+    // Update the projection to use computed scale & translate.
+    projection
+      .scale(s)
+      .translate(t);
+
+    var svg = d3.select(runDiv).append("svg")
+      .attr("class", "run-svg" )
+      .attr("width", width)
+      .attr("height", height);
+
+    svg.append("path")
+      .datum(runData)
+      .attr("class", "arc")
+      .attr("d", path);
+
+    // Sort them
+    sortMaps();
+
+    // Stats
+    appendStats();
+  }
+
+  function sortMaps(){
+    var runDivs = document.getElementsByClassName("run");
+
+    if(runDivs.length == runFiles.length){
+      var runs = sortedRunsArray();
+      runs.forEach(function(run, index) {
+        if((index + 1) % athlete["rows"] == 0){
+          run.className += " rowEnd";
+        }
+        poster.appendChild(run);
+      });
+    };
+  }
+
+  function sortedRunsArray(sort){
+    var sort = typeof(sort) !== 'undefined' ? sort : "date",
+        runDivs = document.getElementsByClassName("run"),
+        runs = [];
+
+    for (var i = 0; i < runDivs.length; ++i) {
+      runs.push(runDivs[i]);
+    }
+
+    runs.sort(function(a, b) {
+      if(sort == "distance"){
+        return parseFloat(a.dataset.runDistance)-parseFloat(b.dataset.runDistance);
+      } else {
+        return a.dataset.runDate.localeCompare(b.dataset.runDate);
+      }
+    })
+
+    return runs;
+  }
+
+  function appendStats(){
+    var runDivs = document.getElementsByClassName("run");
+        
+    if(runDivs.length == runFiles.length){
+      var runs = sortedRunsArray(),
+          total = setImperial(overallDistance()),
+          avg =   setImperial(averageDistance()),
+          min =   setImperial(minDistance()),
+          max =   setImperial(maxDistance());
+
+      // Year: 2013
+      var div = document.createElement("div");
+      div.className = "statsHolder";
+      poster_footer.appendChild(div);
+
+      var h3 = document.createElement("h3");
+      h3.innerHTML = "Year:";
+      div.appendChild(h3);
+
+      var h2 = document.createElement("h2");
+      h2.innerHTML = athlete["year"];
+      div.appendChild(h2);
+
+      var div = document.createElement("div");
+      div.className = "statsHolder";
+      poster_footer.appendChild(div);
+
+      var h3 = document.createElement("h3");
+      h3.innerHTML = "Athlete:";
+      div.appendChild(h3);
+
+      var h2 = document.createElement("h2");
+      h2.innerHTML = athlete["name"];
+      div.appendChild(h2);
+
+      // Stats
+      var div = document.createElement("div");
+      div.className = "statsHolder";
+      poster_footer.appendChild(div);
+
+      var h3 = document.createElement("h3");
+      h3.innerHTML = "Statistics:";
+      div.appendChild(h3);
+
+      var ul = document.createElement("ul");
+      ul.className = "stats";
+      div.appendChild(ul);
+
+      var li = document.createElement("li");
+      li.innerHTML = "Total: " + setString(total, "imperial");
+      ul.appendChild(li);
+
+      var li = document.createElement("li");
+      li.innerHTML = "Minimum: " + setString(min, "imperial");
+      ul.appendChild(li);
+
+      var li = document.createElement("li");
+      li.innerHTML = "Average: " + setString(avg, "imperial");
+      ul.appendChild(li);
+
+      var li = document.createElement("li");
+      li.innerHTML = "Maximum: " + setString(max, "imperial");
+      ul.appendChild(li);
+    };
+  }
+
+  function setString(number, system){
+    var system = typeof(system) !== 'undefined' ? system : 'metric',
+        end = "";
+
+    if(system == 'imperial'){
+      end = " miles";
+    } else {
+      end = " km";
+    }
+
+    return number + end;
+  }
+
+  function setImperial(number){
+    return (number * 0.621371192).toFixed(2);
+  }
+
+  function maxDistance(){
+    var runs = sortedRunsArray("distance");
+    return parseFloat(runs[runs.length - 1].dataset.runDistance);
+  }
+
+  function minDistance(){
+    var runs = sortedRunsArray("distance");
+    return parseFloat(runs[0].dataset.runDistance);
+  }
+
+  function overallDistance(){
+    var runs = sortedRunsArray("distance"),
+        sum = 0;
+
+    for (var i = 0; i < runs.length; ++i) {
+      var distance = parseFloat(runs[i].dataset.runDistance);
+      sum += distance;
+    };
+    
+    return Math.round(sum*100)/100;
+  }
+
+  function averageDistance(){
+    var runs = sortedRunsArray("distance"),
+        total = overallDistance();
+
+    return Math.round(total/runs.length*100)/100;
+  }
+
+  function totalDistance(coords){
+    var totalDist = 0;
+
+    for (var i = 0; i < (coords.length-1); ++i) {
+      var p1 = [coords[i][0], coords[i][1]]
+      var p2 = [coords[i+1][0], coords[i+1][1]]
+          
+      totalDist += calcDist(p1, p2);
+    }
+
+    return totalDist.toFixed(2);
+  }
+
+  function calcDist(p1, p2) {
+    // Haversine formula
+    dLatRad = Math.abs(p1[1] - p2[1]) * Math.PI/180;
+    dLonRad = Math.abs(p1[0] - p2[0]) * Math.PI/180;
+    // Calculate origin in Radians
+    lat1Rad = p1[1] * Math.PI/180;
+    lon1Rad = p1[0] * Math.PI/180;
+    // Calculate new point in Radians
+    lat2Rad = p2[1] * Math.PI/180;
+    lon2Rad = p2[0] * Math.PI/180;
+
+    // Earth's Radius
+    eR = 6371;
+    d1 = Math.sin(dLatRad/2) * Math.sin(dLatRad/2) +
+         Math.sin(dLonRad/2) * Math.sin(dLonRad/2) * Math.cos(lat1Rad) * Math.cos(lat2Rad);
+    d2 = 2 * Math.atan2(Math.sqrt(d1), Math.sqrt(1-d1));
+    return(eR * d2);
+  }
+
+  d3.select(self.frameElement).style("height", height + "px");
+
+  </script>
+</body>

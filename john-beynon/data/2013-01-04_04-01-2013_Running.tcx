@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<TrainingCenterDatabase xmlns:ns2="http://www.garmin.com/xmlschemas/UserProfile/v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns4="http://www.garmin.com/xmlschemas/ProfileExtension/v1" xmlns:ns5="http://www.garmin.com/xmlschemas/ActivityGoals/v1" xmlns:tpx="http://www.garmin.com/xmlschemas/ActivityExtension/v2" xmlns="http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2">
+  <Activities>
+    <Activity Sport="Running">
+      <Notes>04/01/2013</Notes>
+      <Id>2013-01-04T07:00:02.000Z</Id>
+      <Lap StartTime="2013-01-04T07:00:02.000Z">
+        <TotalTimeSeconds>1813.0</TotalTimeSeconds>
+        <DistanceMeters>0.0</DistanceMeters>
+        <MaximumSpeed>0.0</MaximumSpeed>
+        <Calories>24</Calories>
+        <Intensity>Active</Intensity>
+        <TriggerMethod>Manual</TriggerMethod>
+        <Track>
+          <Trackpoint>
+            <Time>2013-01-04T07:00:02.000Z</Time>
+            <Position>
+              <LatitudeDegrees>51.238714</LatitudeDegrees>
+              <LongitudeDegrees>-0.567002</LongitudeDegrees>
+            </Position>
+            <AltitudeMeters>59</AltitudeMeters>
+            <DistanceMeters>0</DistanceMeters>
+          </Trackpoint>
+          <Trackpoint>
+            <Time>2013-01-04T07:00:02.000Z</Time>
+            <Position>
+              <LatitudeDegrees>51.238714</LatitudeDegrees>
+              <LongitudeDegrees>-0.567002</LongitudeDegrees>
+            </Position>
+            <AltitudeMeters>59</AltitudeMeters>
+            <DistanceMeters>0</DistanceMeters>
+          </Trackpoint>
+          <Trackpoint>
+            <Time>2013-01-04T07:30:15.000Z</Time>
+            <Position>
+              <LatitudeDegrees>51.238714</LatitudeDegrees>
+              <LongitudeDegrees>-0.567002</LongitudeDegrees>
+            </Position>
+            <AltitudeMeters>59</AltitudeMeters>
+            <DistanceMeters>0</DistanceMeters>
+          </Trackpoint>
+        </Track>
+        <Extensions>
+          <LX xmlns="http://www.garmin.com/xmlschemas/ActivityExtension/v2">
+            <AvgSpeed>0.0</AvgSpeed>
+          </LX>
+        </Extensions>
+      </Lap>
+    </Activity>
+  </Activities>
+  <Author xsi:type="Application_t">
+    <Name>tapiriik</Name>
+    <Build>
+      <Version>
+        <VersionMajor>0</VersionMajor>
+        <VersionMinor>0</VersionMinor>
+        <BuildMajor>0</BuildMajor>
+        <BuildMinor>0</BuildMinor>
+      </Version>
+    </Build>
+    <LangID>en</LangID>
+    <PartNumber>000-00000-00</PartNumber>
+  </Author>
+</TrainingCenterDatabase>
